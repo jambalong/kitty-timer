@@ -1,0 +1,378 @@
+/* timer [stopwatch ui] */
+
+/* stopwatch ui container */
+#stopwatchUi {
+  /* hide */
+  display: none;
+
+  /* hide overflow */
+  overflow: hidden;
+}
+
+/* time text */
+/* text: time */
+#stopwatchUi .time .timeText {
+  /* size */
+  width: 394px;
+  height: 270px;
+
+  /* position */
+  left: 0px;
+  top: 10px;
+
+  /* font */
+  font-family: "KgAdipose";
+  font-weight: bold;
+  font-size: 70px;
+  color: #4c4f69;
+
+  /* tighten spacing */
+  letter-spacing: -6px;
+
+  /* monospace numbers */
+  font-variant-numeric: tabular-nums;
+
+  /* stretch taller */
+  transform: scaleY(1.8) translateY(20%) translateX(2.5%);
+  transform-origin: center;
+  display: inline-block;
+
+  /* cannot select text */
+  user-select: none;
+}
+
+/* pause */
+#stopwatchUi .paused {
+  /* hide */
+  visibility: hidden;
+}
+/* image: pause */
+#stopwatchUi .paused .pausedImage {
+  /* size */
+  width: 311px;
+  height: 101px;
+
+  /* position */
+  left: 39px;
+  top: 37px;
+
+  /* image */
+  background-image: url(../../../asset/image/text/english/Paused.png);
+}
+/* text: time */
+#stopwatchUi .paused .timeText {
+  /* size */
+  width: 394px;
+  height: 270px;
+
+  /* position */
+  left: 50px;
+  top: 250px;
+
+  /* font */
+  font-family: "KgAdipose";
+  font-weight: bold;
+  font-size: 50px;
+  color: #4c4f69;
+
+  /* stretch taller */
+  transform: scaleY(1.8);
+  transform-origin: center;
+  display: inline-block;
+
+  /* monospace numbers */
+  font-variant-numeric: tabular-nums;
+
+  /* cannot select text */
+  user-select: none;
+
+  /* cannot select text */
+  user-select: none;
+}
+/* background: gray */
+#stopwatchUi .paused .background {
+  /* size */
+  width: 394px;
+  height: 344px;
+
+  /* position */
+  left: 0px;
+  top: 0px;
+
+  /* color */
+  background-color: #dce0e8;
+}
+
+/* black cat */
+/* cat */
+#stopwatchUi .blackCat .cat {
+  /* size */
+  width: 233px;
+  height: 215px;
+
+  /* position */
+  top: 250px;
+  left: 182px;
+
+  /* cursor and z-index */
+  cursor: pointer;
+}
+/* cat body */
+#stopwatchUi .blackCat .cat .body {
+  /* size */
+  width: 233px;
+  height: 215px;
+
+  /* position */
+  top: 0px;
+  left: 0px;
+
+  /* image */
+  background-image: url(../../../asset/image/cat/BlackCat-Body.png);
+}
+/* cat mouth */
+#stopwatchUi .blackCat .cat .mouth {
+  /* size */
+  width: 96px;
+  height: 81px;
+
+  /* position */
+  top: 82px;
+  left: 68px;
+
+  /* image */
+  background-image: url(../../../asset/image/cat/BlackCat-OpenMouth.png);
+}
+/* cat close mouth */
+#stopwatchUi .blackCat .cat .close {
+  /* size */
+  width: 96px;
+  height: 81px;
+
+  /* position */
+  top: 82px;
+  left: 68px;
+
+  /* image */
+  background-image: url(../../../asset/image/cat/BlackCat-CloseMouth.png);
+
+  /* opacity */
+  opacity: 0;
+
+  /* click through */
+  pointer-events: none;
+
+  z-index: 5;
+}
+
+/* black cat (rope) */
+/* rope */
+#stopwatchUi .blackCat .rope {
+  /* size */
+  width: 72px;
+  height: 326px;
+
+  /* position */
+  top: -341px;
+  left: 267px;
+
+  /* click through */
+  pointer-events: none;
+}
+/* line */
+#stopwatchUi .blackCat .rope .line {
+  /* size */
+  width: 8px;
+  height: 257px;
+
+  /* position */
+  top: 34px;
+  left: 30px;
+
+  /* image */
+  background-image: url(../../../asset/image/cat/BlackCat-Rope.png);
+}
+/* text */
+#stopwatchUi .blackCat .rope .text {
+  /* size */
+  width: 71px;
+  height: 55px;
+
+  /* position */
+  top: 271px;
+  left: 0px;
+
+  /* click through */
+  pointer-events: none;
+}
+/* text: reset */
+#stopwatchUi .blackCat .rope .text .reset {
+  /* size */
+  width: 71px;
+  height: 55px;
+
+  /* position */
+  top: 0px;
+  left: 0px;
+
+  /* image */
+  background-image: url(../../../asset/image/text/english/Reset.png);
+
+  z-index: 0;
+}
+
+/* gray cat */
+/* cat */
+#stopwatchUi .grayCat .cat {
+  /* size */
+  width: 256px;
+  height: 224px;
+
+  /* position */
+  top: 246px;
+  left: -35px;
+
+  /* cursor */
+  cursor: pointer;
+}
+/* cat body */
+#stopwatchUi .grayCat .cat .body {
+  /* size */
+  width: 256px;
+  height: 224px;
+
+  /* position */
+  top: 0px;
+  left: 0px;
+
+  /* image */
+  background-image: url(../../../asset/image/cat/GrayCat-Body.png);
+}
+/* cat mouth */
+#stopwatchUi .grayCat .cat .mouth {
+  /* size */
+  width: 111px;
+  height: 99px;
+
+  /* position */
+  top: 93px;
+  left: 83px;
+
+  /* image */
+  background-image: url(../../../asset/image/cat/GrayCat-OpenMouth.png);
+}
+/* cat close mouth */
+#stopwatchUi .grayCat .cat .close {
+  /* size */
+  width: 111px;
+  height: 99px;
+
+  /* position */
+  top: 93px;
+  left: 83px;
+
+  /* image */
+  background-image: url(../../../asset/image/cat/GrayCat-CloseMouth.png);
+
+  /* set z-index (image layer order) */
+  z-index: 21;
+
+  /* opacity */
+  opacity: 0;
+
+  /* click through */
+  pointer-events: none;
+}
+/* cat hand */
+#stopwatchUi .grayCat .cat .hand {
+  /* size */
+  width: 158px;
+  height: 44px;
+
+  /* position */
+  top: 130px;
+  left: 63px;
+
+  /* image */
+  background-image: url(../../../asset/image/cat/GrayCat-Hand.png);
+
+  /* set z-index (image layer order) */
+  z-index: 22;
+
+  /* click through */
+  pointer-events: none;
+}
+
+/* gray cat (rope) */
+/* rope */
+#stopwatchUi .grayCat .rope {
+  /* size */
+  width: 72px;
+  height: 326px;
+
+  /* position */
+  top: -369px;
+  left: 70px;
+
+  /* z-index in front */
+  z-index: 20;
+
+  /* click through */
+  pointer-events: none;
+}
+/* line */
+#stopwatchUi .grayCat .rope .line {
+  /* size */
+  width: 15px;
+  height: 278px;
+
+  /* position */
+  top: 19px;
+  left: 35px;
+
+  /* image */
+  background-image: url(../../../asset/image/cat/GrayCat-Rope.png);
+}
+/* text */
+#stopwatchUi .grayCat .rope .text {
+  /* size */
+  width: 68px;
+  height: 48px;
+
+  /* position */
+  top: 277px;
+  left: 0px;
+}
+/* text: pause */
+#stopwatchUi .grayCat .rope .text .pause {
+  /* size */
+  width: 68px;
+  height: 48px;
+
+  /* position */
+  top: 0px;
+  left: 0px;
+
+  /* image */
+  background-image: url(../../../asset/image/text/english/Pause.png);
+
+  z-index: 0;
+}
+/* text: resume */
+#stopwatchUi .grayCat .rope .text .resume {
+  /* size */
+  width: 68px;
+  height: 48px;
+
+  /* position */
+  top: 0px;
+  left: 2px;
+
+  /* image */
+  background-image: url(../../../asset/image/text/english/Resume.png);
+
+  /* opacity */
+  opacity: 0;
+
+  z-index: 0;
+}

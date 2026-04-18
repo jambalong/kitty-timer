@@ -1,0 +1,7 @@
+/* define font resource */
+
+/* text */
+@font-face{
+    font-family: "KgAdipose";
+    src: url(../../../asset/font/KgAdiposeUnicase-Veqe.ttf);
+}

@@ -1,0 +1,142 @@
+/* timer [stopwatch ui] animation */
+/* (animation in stopwatchUi) */
+
+
+/* button: black cat */
+/* [when mouse leaves] */
+#stopwatchUi .blackCat .cat{
+    /* transition */
+    transition: top 0.25s cubic-bezier(0.895, 0.03, 0.685, 0.22);
+    /* position */
+    top: 250px;
+}
+/* [when mouse enters] */
+#stopwatchUi .blackCat .cat:hover{
+    /* transition */
+    transition: top 0.25s cubic-bezier(0.165, 0.84, 0.44, 1);
+    /* position */
+    top: 134px;
+}
+
+
+/* button: black cat mouth */
+/* [when mouse leaves] */
+#stopwatchUi .blackCat .cat .mouth{
+    /* transition */
+    transition: visibility 0.25s step-end, transform 0.15s;
+
+    /* opacity */
+    visibility: hidden;
+
+    /* transform */
+    transform: scale(1);
+}
+/* [when mouse enters black cat, black cat mouth] */
+#stopwatchUi .blackCat .cat:hover .mouth{
+    /* transition */
+    transition: visibility 0s;
+
+    /* opacity */
+    visibility: visible;
+}
+
+
+/* image: black cat close mouth */
+#stopwatchUi .blackCat .cat .close{
+    /* transition */
+    transition: transform 0.2s;
+
+    /* transform */
+    transform-origin: center bottom;
+    transform: scale(1, 0.8);
+
+    /* opacity */
+    opacity: 0;
+}
+
+
+/* animation: black cat rope swing */
+@keyframes blackCatRopeSwingAnimation{
+    0%{
+        transform: translateX(-8px);
+    }
+    100%{
+        transform: translateX(5px);
+    }
+}
+/* button: black cat rope */
+/* [when mouse leaves] */
+#stopwatchUi .blackCat .rope{
+    /* transition */
+    transition: top 0.35s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+
+/* button: gray cat */
+/* [when mouse leaves] */
+#stopwatchUi .grayCat .cat{
+    /* transition */
+    transition: top 0.25s cubic-bezier(0.895, 0.03, 0.685, 0.22);
+    /* position */
+    top: 246px;
+}
+/* [when mouse enters] */
+#stopwatchUi .grayCat .cat:hover{
+    /* transition */
+    transition: top 0.25s cubic-bezier(0.165, 0.84, 0.44, 1);
+    /* position */
+    top: 126px;
+}
+
+
+/* button: gray cat mouth */
+/* [when mouse leaves] */
+#stopwatchUi .grayCat .cat .mouth{
+    /* transition */
+    transition: visibility 0.25s step-end, transform 0.15s;
+
+    /* hidden */
+    visibility: hidden;
+
+    /* transform */
+    transform: scale(1);
+}
+/* [when mouse enters gray cat, gray cat mouth] */
+#stopwatchUi .grayCat .cat:hover .mouth{
+    /* transition */
+    transition: visibility 0s;
+
+    /* show */
+    visibility: visible;
+}
+
+
+/* image: gray cat close mouth */
+#stopwatchUi .grayCat .cat .close{
+    /* transition */
+    transition: transform 0.2s;
+
+    /* transform */
+    transform-origin: center bottom;
+    transform: scale(0.8);
+
+    /* opacity */
+    opacity: 0;
+}
+
+
+/* animation: gray cat rope swing */
+@keyframes grayCatRopeSwingAnimation{
+    0%{
+        transform: translateX(-8px);
+    }
+    100%{
+        transform: translateX(4px);
+    }
+}
+/* button: gray cat rope */
+/* [when mouse leaves] */
+#stopwatchUi .grayCat .rope{
+    /* transition */
+    transition: top 0.35s cubic-bezier(0.165, 0.84, 0.44, 1);
+}

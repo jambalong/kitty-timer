@@ -1,0 +1,53 @@
+/* remove default styles */
+
+* {
+  font-family: Helvetica, Arial, Verdana, sans-serif;
+}
+
+body {
+  margin: 0px;
+  padding: 0px;
+  background-color: #ccd0da;
+}
+
+button {
+  margin: 0px;
+  padding: 0px;
+  border: 0px;
+  outline: none;
+  background-color: transparent;
+}
+
+p {
+  padding: 0px;
+  margin: 0px;
+}
+
+input::selection,
+p::selection {
+  background-color: rgba(169, 169, 169, 0.6);
+}
+
+div,
+button,
+a {
+  /* make images clear */
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  -ms-backface-visibility: hidden;
+
+  /* image */
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+
+  /* clear mobile tap highlight */
+  -webkit-tap-highlight-color: transparent;
+  /* disable long press menu */
+  -webkit-touch-callout: none;
+}
+
+a {
+  text-decoration: none;
+  display: block;
+}

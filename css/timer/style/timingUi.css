@@ -1,0 +1,128 @@
+/* timer [timing ui] */
+
+/* timing ui container */
+#timingUi {
+  /* hide */
+  display: block;
+}
+
+/* background */
+/* background: gray */
+#timingUi .background .gray {
+  /* size */
+  width: 139px;
+  height: 177px;
+  border-radius: 10px;
+
+  /* position */
+  left: 193px;
+  top: 82px;
+
+  /* color */
+  background-color: #f9e2af;
+}
+/* background: yellow */
+#timingUi .background .yellow {
+  /* size */
+  width: 139px;
+  height: 177px;
+  border-radius: 10px;
+
+  /* position */
+  left: 60px;
+  top: 64px;
+
+  /* color */
+  background-color: #a6e3a1;
+}
+
+/* time text */
+/* time */
+#timingUi .clock * {
+  /* size */
+  height: 240px;
+
+  /* font */
+  font-family: "KgAdipose";
+  font-weight: bold;
+  font-size: 180px;
+  text-align: center;
+  color: #4c4f69;
+
+  /* word spacing */
+  letter-spacing: 6px;
+
+  /* monospace numbers */
+  font-variant-numeric: tabular-nums;
+
+  /* cannot select text */
+  user-select: none;
+}
+
+/* text: KittyTimer */
+#timingUi .clock .clockText {
+  /* position */
+  left: 15px;
+  top: 0px;
+
+  /* font */
+  font-size: 41px;
+  transform: scaleY(1.8) translateY(50%);
+  transform-origin: center;
+  display: inline-block;
+  letter-spacing: 4px;
+}
+
+/* bottom button */
+#timingUi .start {
+  /* size */
+  width: 85px;
+  height: 39px;
+
+  /* position */
+  top: 284px;
+  left: 260px;
+}
+/* button: start */
+#timingUi .start .button {
+  /* size */
+  width: 85px;
+  height: 39px;
+
+  /* position */
+  top: 0px;
+  left: 0px;
+
+  /* image */
+  background-image: url(../../../asset/image/text/english/Start.png);
+
+  /* cursor */
+  cursor: pointer;
+}
+/* image: underline */
+#timingUi .start .line {
+  /* size */
+  width: 85px;
+  height: 39px;
+
+  /* position */
+  top: 0px;
+  left: 0px;
+
+  /* image */
+  background-image: url(../../../asset/image/text/english/StartLine.png);
+
+  /* opacity */
+  opacity: 0;
+
+  /* click through */
+  pointer-events: none;
+
+  /* transition */
+  transition: opacity 0.15s;
+}
+/* button: start hover */
+#timingUi .start:hover .line {
+  /* opacity */
+  opacity: 1;
+}

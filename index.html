@@ -1,0 +1,118 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+    />
+    <title>Kitty Timer</title>
+
+    <link type="image/x-icon" href="./favicon.ico" rel="icon" />
+
+    <link rel="stylesheet" href="./css/timer/other/font.css" />
+    <link rel="stylesheet" href="./css/timer/other/initial.css" />
+    <link rel="stylesheet" href="./css/timer/style/timerApp.css" />
+    <link rel="stylesheet" href="./css/timer/style/stopwatchUi.css" />
+    <link rel="stylesheet" href="./css/timer/style/timingUi.css" />
+    <link rel="stylesheet" href="./css/timer/animation/stopwatchUi.css" />
+    <link rel="stylesheet" href="./css/media/media.css" />
+    <link rel="stylesheet" href="./css/timer/style/cozy.css" />
+  </head>
+
+  <body>
+    <div id="audios">
+      <audio class="buttonDown" src="asset/audio/ButtonDown.wav" preload="auto"></audio>
+      <audio class="buttonUp" src="asset/audio/ButtonUp.wav" preload="auto"></audio>
+      <audio class="catUp1" src="asset/audio/CatUp-01.wav" preload="auto"></audio>
+      <audio class="catUp2" src="asset/audio/CatUp-02.wav" preload="auto"></audio>
+      <audio class="catUp3" src="asset/audio/CatUp-03.wav" preload="auto"></audio>
+      <audio class="catDown1" src="asset/audio/CatDown-01.wav" preload="auto"></audio>
+      <audio class="catDown2" src="asset/audio/CatDown-02.wav" preload="auto"></audio>
+      <audio class="catDown3" src="asset/audio/CatDown-03.wav" preload="auto"></audio>
+    </div>
+
+    <div id="background"></div>
+
+    <main id="main">
+      <div id="timerApp">
+        <div id="timingUi" class="ui">
+          <div class="background">
+            <div class="gray"></div>
+            <div class="yellow"></div>
+          </div>
+
+          <div>
+            <div class="clock">
+              <p class="clockText">KittyTimer</p>
+            </div>
+          </div>
+
+          <div>
+            <div class="start">
+              <button class="button"></button>
+              <div class="line"></div>
+            </div>
+          </div>
+        </div>
+
+        <div id="stopwatchUi" class="ui">
+          <div class="time">
+            <p class="timeText">00:00.00</p>
+          </div>
+
+          <div class="paused">
+            <div class="background"></div>
+            <div class="pausedImage"></div>
+            <p class="timeText">00:00.00</p>
+          </div>
+
+          <div class="blackCat">
+            <div class="cat">
+              <div class="body"></div>
+              <div class="mouth"></div>
+              <div class="close"></div>
+            </div>
+            <div class="rope">
+              <div class="line"></div>
+              <div class="text">
+                <div class="reset"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="grayCat">
+            <div class="cat">
+              <div class="body"></div>
+              <div class="mouth"></div>
+              <div class="close"></div>
+              <div class="hand"></div>
+            </div>
+            <div class="rope">
+              <div class="line"></div>
+              <div class="text">
+                <div class="pause"></div>
+                <div class="resume"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <script src="./js/timer/other/enums.js"></script>
+    <script src="./js/timer/other/tools.js"></script>
+    <script src="./js/timer/struct/time.js"></script>
+    <script src="./js/timer/data/datas.js"></script>
+    <script src="./js/timer/system/audioSystem.js"></script>
+    <script src="./js/timer/system/timeSystem.js"></script>
+    <script src="./js/timer/system/saveSystem.js"></script>
+    <script src="./js/timer/system/systems.js"></script>
+    <script src="./js/timer/ui/stopwatchUi.js"></script>
+    <script src="./js/timer/ui/timingUi.js"></script>
+    <script src="./js/timer/ui/uis.js"></script>
+    <script src="./js/timer/timerApp.js"></script>
+    <script src="./js/webManager.js"></script>
+    <script src="./js/timer/cozy.js"></script>
+  </body>
+</html>

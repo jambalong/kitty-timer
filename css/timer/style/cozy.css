@@ -1,0 +1,297 @@
+/* ============================================
+   KittyTimer — Cozy Decorations
+   Pure additions: no existing styles modified
+   ============================================ */
+
+/* ── Background ambient particles ── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    radial-gradient(circle at 20% 30%, rgba(166, 227, 161, 0.18) 0%, transparent 40%),
+    radial-gradient(circle at 80% 70%, rgba(249, 226, 175, 0.22) 0%, transparent 40%),
+    radial-gradient(circle at 50% 10%, rgba(180, 190, 254, 0.12) 0%, transparent 35%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── Floating decoration wrapper ── */
+#decorations {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 0;
+}
+
+/* ── Base decoration element ── */
+.deco {
+  position: absolute;
+  pointer-events: none;
+  user-select: none;
+  opacity: 0;
+  animation: decoFloat linear infinite;
+}
+
+/* ── Paw print SVG decorations ── */
+.deco-paw::before {
+  content: '🐾';
+  font-size: inherit;
+  display: block;
+}
+
+/* ── Star sparkle ── */
+.deco-star::before {
+  content: '✦';
+  display: block;
+  color: #f9e2af;
+  font-size: inherit;
+  text-shadow: 0 0 6px rgba(249, 226, 175, 0.8);
+}
+
+/* ── Heart ── */
+.deco-heart::before {
+  content: '♡';
+  display: block;
+  color: #f38ba8;
+  font-size: inherit;
+}
+
+/* ── Fish ── */
+.deco-fish::before {
+  content: '🐟';
+  font-size: inherit;
+  display: block;
+}
+
+/* ── Moon ── */
+.deco-moon::before {
+  content: '☾';
+  display: block;
+  color: #cba6f7;
+  font-size: inherit;
+}
+
+/* ── Yarn ── */
+.deco-yarn::before {
+  content: '🧶';
+  font-size: inherit;
+  display: block;
+}
+
+/* ── Float animation ── */
+@keyframes decoFloat {
+  0% {
+    opacity: 0;
+    transform: translateY(0px) rotate(0deg) scale(0.8);
+  }
+  8% {
+    opacity: 1;
+  }
+  85% {
+    opacity: 0.7;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-110vh) rotate(360deg) scale(1.1);
+  }
+}
+
+/* ── Gentle sway animation ── */
+@keyframes decoSway {
+  0%, 100% { transform: translateX(0px) translateY(0px) rotate(-5deg); opacity: 0.7; }
+  25%       { transform: translateX(8px)  translateY(-6px) rotate(5deg);  opacity: 0.9; }
+  50%       { transform: translateX(-5px) translateY(-12px) rotate(-3deg); opacity: 0.8; }
+  75%       { transform: translateX(6px)  translateY(-6px) rotate(6deg);  opacity: 0.9; }
+}
+
+/* ── Corner decorative SVG panels ── */
+#deco-corner-tl,
+#deco-corner-tr,
+#deco-corner-bl,
+#deco-corner-br {
+  position: fixed;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.55;
+}
+
+#deco-corner-tl { top: 0;    left: 0;    width: 200px; height: 200px; }
+#deco-corner-tr { top: 0;    right: 0;   width: 200px; height: 200px; transform: scaleX(-1); }
+#deco-corner-bl { bottom: 0; left: 0;    width: 200px; height: 200px; transform: scaleY(-1); }
+#deco-corner-br { bottom: 0; right: 0;   width: 200px; height: 200px; transform: scale(-1,-1); }
+
+/* ── Deco shelf — little items sitting on top of the card ── */
+#deco-shelf {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 394px;
+  height: 344px;
+  pointer-events: none;
+  z-index: 10; /* above card, below nothing interactive */
+  border-radius: 20px;
+  overflow: visible;
+}
+
+/* ── Static SVG paw prints scattered on background ── */
+#deco-paws {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── Floating sparkles ── */
+.sparkle {
+  position: absolute;
+  pointer-events: none;
+  animation: sparklePop 2.4s ease-in-out infinite;
+  opacity: 0;
+}
+.sparkle::before {
+  content: '✦';
+  color: #f9e2af;
+  font-size: 14px;
+  text-shadow: 0 0 8px #f9e2af, 0 0 16px rgba(249, 226, 175, 0.5);
+  display: block;
+}
+.sparkle:nth-child(2)::before { color: #cba6f7; text-shadow: 0 0 8px #cba6f7; font-size: 10px; }
+.sparkle:nth-child(3)::before { color: #f38ba8; text-shadow: 0 0 8px #f38ba8; font-size: 12px; }
+
+@keyframes sparklePop {
+  0%   { opacity: 0;   transform: scale(0.3) rotate(0deg);   }
+  30%  { opacity: 1;   transform: scale(1.2) rotate(45deg);  }
+  60%  { opacity: 0.8; transform: scale(0.9) rotate(90deg);  }
+  100% { opacity: 0;   transform: scale(0.5) rotate(180deg); }
+}
+
+/* ── Tiny cat ears on top of card ── */
+#deco-ears {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  /* shift up by half card height (172px) */
+  transform: translate(-50%, calc(-50% - 172px));
+  width: 394px;
+  height: 60px;
+  pointer-events: none;
+  z-index: 5;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 40px;
+  box-sizing: border-box;
+}
+
+.cat-ear {
+  width: 0;
+  height: 0;
+  border-left: 22px solid transparent;
+  border-right: 22px solid transparent;
+  border-bottom: 38px solid #eff1f5;
+  position: relative;
+  filter: drop-shadow(0 -3px 6px rgba(91, 91, 91, 0.15));
+}
+
+.cat-ear::after {
+  content: '';
+  position: absolute;
+  left: -11px;
+  top: 12px;
+  width: 0;
+  height: 0;
+  border-left: 11px solid transparent;
+  border-right: 11px solid transparent;
+  border-bottom: 20px solid #f38ba8;
+}
+
+/* ── Card glow pulse ── */
+#timerApp {
+  animation: cardGlow 4s ease-in-out infinite;
+}
+
+@keyframes cardGlow {
+  0%, 100% { box-shadow: 0px 0px 20px 0px rgba(91, 91, 91, 0.25); }
+  50%       { box-shadow: 0px 0px 32px 6px rgba(166, 227, 161, 0.22), 0px 0px 20px 0px rgba(91, 91, 91, 0.2); }
+}
+
+/* ── Badge centered between the cat ears ── */
+#deco-tag {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  /* same vertical level as the ears (which are offset -172px), nudged down to sit between them */
+  transform: translate(-50%, calc(-50% - 155px));
+  pointer-events: none;
+  z-index: 6;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* no string needed — badge floats flat between the ears */
+#deco-tag .tag-string {
+  display: none;
+}
+
+#deco-tag .tag-label {
+  background: #f38ba8;
+  color: #fff;
+  font-family: "KgAdipose", sans-serif;
+  font-size: 12px;
+  letter-spacing: 1.5px;
+  padding: 5px 14px;
+  border-radius: 20px;
+  white-space: nowrap;
+  box-shadow: 0 2px 8px rgba(243, 139, 168, 0.45);
+  animation: tagBreathe 3s ease-in-out infinite;
+}
+
+@keyframes tagBreathe {
+  0%, 100% { transform: scale(1);    box-shadow: 0 2px 8px rgba(243,139,168,0.45); }
+  50%       { transform: scale(1.06); box-shadow: 0 4px 14px rgba(243,139,168,0.60); }
+}
+
+/* ── Bottom cozy text ── */
+#deco-byline {
+  position: fixed;
+  bottom: 18px;
+  left: 50%;
+  transform: translateX(-50%);
+  pointer-events: none;
+  z-index: 5;
+  font-family: "KgAdipose", sans-serif;
+  font-size: 13px;
+  color: rgba(76, 79, 105, 0.45);
+  letter-spacing: 2px;
+  white-space: nowrap;
+  animation: bylineFade 5s ease-in-out infinite;
+}
+
+@keyframes bylineFade {
+  0%, 100% { opacity: 0.45; }
+  50%       { opacity: 0.75; }
+}
+
+/* ── Ambient floating items (js-generated) ── */
+
+/* Individual float paths — offset so they feel organic */
+.float-item-1  { left: 5%;   animation-duration: 18s; animation-delay: 0s;    font-size: 18px; }
+.float-item-2  { left: 12%;  animation-duration: 22s; animation-delay: -4s;   font-size: 13px; }
+.float-item-3  { left: 22%;  animation-duration: 16s; animation-delay: -9s;   font-size: 20px; }
+.float-item-4  { left: 33%;  animation-duration: 25s; animation-delay: -2s;   font-size: 11px; }
+.float-item-5  { left: 45%;  animation-duration: 19s; animation-delay: -13s;  font-size: 16px; }
+.float-item-6  { left: 55%;  animation-duration: 21s; animation-delay: -6s;   font-size: 14px; }
+.float-item-7  { left: 65%;  animation-duration: 17s; animation-delay: -11s;  font-size: 19px; }
+.float-item-8  { left: 75%;  animation-duration: 23s; animation-delay: -1s;   font-size: 12px; }
+.float-item-9  { left: 85%;  animation-duration: 20s; animation-delay: -7s;   font-size: 17px; }
+.float-item-10 { left: 92%;  animation-duration: 15s; animation-delay: -15s;  font-size: 10px; }
+
+/* Each floater starts from the bottom */
+.float-item-1, .float-item-2, .float-item-3, .float-item-4, .float-item-5,
+.float-item-6, .float-item-7, .float-item-8, .float-item-9, .float-item-10 {
+  bottom: -40px;
+  top: auto;
+}

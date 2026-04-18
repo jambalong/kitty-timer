@@ -1,0 +1,47 @@
+/* timer container */
+#timerApp {
+  /* size */
+  width: 394px;
+  height: 344px;
+  border-radius: 20px;
+
+  /* position */
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  margin: 0;
+
+  /* shadow */
+  box-shadow: 0px 0px 20px 0px rgba(91, 91, 91, 0.25);
+
+  /* color */
+  background-color: #eff1f5;
+  opacity: 1;
+
+  /* hide overflow */
+  overflow: hidden;
+
+  /* flex layout (child elements) */
+  flex-grow: 0;
+  flex-shrink: 0;
+}
+
+/* ui container */
+#timerApp .ui {
+  /* size */
+  width: 394px;
+  height: 344px;
+  border-radius: 20px;
+
+  /* position */
+  position: absolute;
+  left: 0px;
+  top: 0px;
+}
+
+/* all elements in ui */
+#timerApp * {
+  /* position */
+  position: absolute;
+}

@@ -1,0 +1,36 @@
+/* Mobile responsiveness */
+
+/* Large tablets */
+@media screen and (max-width:500px) {
+    #timerApp {
+        transform: scale(0.9);
+    }
+}
+
+/* Small tablets */
+@media screen and (max-width:450px) {
+    #timerApp {
+        transform: scale(0.8);
+    }
+}
+
+/* Large phones */
+@media screen and (max-width:400px) {
+    #timerApp {
+        transform: scale(0.7);
+    }
+}
+
+/* Standard phones */
+@media screen and (max-width:375px) {
+    #timerApp {
+        transform: scale(0.65);
+    }
+}
+
+/* Small phones */
+@media screen and (max-width:320px) {
+    #timerApp {
+        transform: scale(0.55);
+    }
+}

@@ -3,19 +3,33 @@
 /* Large tablets */
 @media screen and (max-width: 500px) {
   #timerApp {
-    transform: translate(-50%, -50%) scale(1);
+    transform: translate(-50%, -50%) scale(1.1);
   }
   #deco-ears {
-    width: 394px;
-    transform: translate(-50%, calc(-50% - 172px));
+    width: 433px; /* 394 * 1.1 */
+    transform: translate(-50%, calc(-50% - 189px)); /* 172 * 1.1 */
   }
   #deco-tag {
-    transform: translate(-50%, calc(-50% - 155px));
+    transform: translate(-50%, calc(-50% - 177px)); /* 155 * 1.1 + 6 */
   }
 }
 
 /* Small tablets */
 @media screen and (max-width: 450px) {
+  #timerApp {
+    transform: translate(-50%, -50%) scale(1);
+  }
+  #deco-ears {
+    width: 394px; /* 394 * 1.0 */
+    transform: translate(-50%, calc(-50% - 172px)); /* 172 * 1.0 */
+  }
+  #deco-tag {
+    transform: translate(-50%, calc(-50% - 161px)); /* 155 * 1.0 + 6 */
+  }
+}
+
+/* Large phones */
+@media screen and (max-width: 400px) {
   #timerApp {
     transform: translate(-50%, -50%) scale(0.9);
   }
@@ -24,12 +38,12 @@
     transform: translate(-50%, calc(-50% - 155px)); /* 172 * 0.9 */
   }
   #deco-tag {
-    transform: translate(-50%, calc(-50% - 140px)); /* 155 * 0.9 */
+    transform: translate(-50%, calc(-50% - 146px)); /* 155 * 0.9 + 6 */
   }
 }
 
-/* Large phones */
-@media screen and (max-width: 400px) {
+/* Standard phones */
+@media screen and (max-width: 375px) {
   #timerApp {
     transform: translate(-50%, -50%) scale(0.8);
   }
@@ -38,12 +52,12 @@
     transform: translate(-50%, calc(-50% - 138px)); /* 172 * 0.8 */
   }
   #deco-tag {
-    transform: translate(-50%, calc(-50% - 124px)); /* 155 * 0.8 */
+    transform: translate(-50%, calc(-50% - 130px)); /* 155 * 0.8 + 6 */
   }
 }
 
-/* Standard phones */
-@media screen and (max-width: 375px) {
+/* Small phones */
+@media screen and (max-width: 320px) {
   #timerApp {
     transform: translate(-50%, -50%) scale(0.7);
   }
@@ -52,20 +66,6 @@
     transform: translate(-50%, calc(-50% - 120px)); /* 172 * 0.7 */
   }
   #deco-tag {
-    transform: translate(-50%, calc(-50% - 109px)); /* 155 * 0.7 */
-  }
-}
-
-/* Small phones */
-@media screen and (max-width: 320px) {
-  #timerApp {
-    transform: translate(-50%, -50%) scale(0.65);
-  }
-  #deco-ears {
-    width: 256px; /* 394 * 0.65 */
-    transform: translate(-50%, calc(-50% - 112px)); /* 172 * 0.65 */
-  }
-  #deco-tag {
-    transform: translate(-50%, calc(-50% - 101px)); /* 155 * 0.65 */
+    transform: translate(-50%, calc(-50% - 115px)); /* 155 * 0.7 + 6 */
   }
 }

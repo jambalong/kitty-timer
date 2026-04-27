@@ -1,0 +1,187 @@
+/* ============================================
+   KittyTimer — Theme (Light / Catppuccin Mocha)
+   Toggle via class: body.dark
+   ============================================ */
+
+/* ── Light mode tokens (default) ── */
+:root {
+  --color-bg: #ccd0da; /* Latte Crust */
+  --color-card: #eff1f5; /* Latte Base */
+  --color-text: #4c4f69; /* Latte Text */
+  --color-block-green: #a6e3a1; /* green */
+  --color-block-yellow: #f9e2af; /* yellow */
+  --color-paused-bg: #dce0e8; /* Latte Surface0 */
+  --color-ear: #eff1f5; /* matches card */
+  --color-ear-inner: #f38ba8; /* pink */
+  --color-tag: #f38ba8;
+  --color-byline: rgba(76, 79, 105, 0.45);
+  --color-star: #f9e2af;
+  --color-heart: #f38ba8;
+  --color-moon: #cba6f7;
+
+  /* button image filter — no change in light mode */
+  --filter-buttons: none;
+
+  /* transitions */
+  --transition-theme: background-color 0.35s ease, color 0.35s ease, border-color 0.35s ease;
+}
+
+/* ── Dark mode tokens (Catppuccin Mocha) ── */
+body.dark {
+  --color-bg: #1e1e2e; /* Mocha Base */
+  --color-card: #313244; /* Mocha Surface0 */
+  --color-text: #cdd6f4; /* Mocha Text */
+  --color-block-green: #4a7c59; /* muted dark green */
+  --color-block-yellow: #8a6f3a; /* muted dark yellow */
+  --color-paused-bg: #45475a; /* Mocha Surface1 */
+  --color-ear: #313244; /* matches dark card */
+  --color-ear-inner: #f38ba8;
+  --color-tag: #f38ba8;
+  --color-byline: rgba(205, 214, 244, 0.35);
+  --color-star: #f9e2af;
+  --color-heart: #f38ba8;
+  --color-moon: #cba6f7;
+
+  /* invert dark-text image buttons to appear light */
+  --filter-buttons: invert(1) brightness(1.8);
+}
+
+/* ── Apply tokens ── */
+
+body {
+  background-color: var(--color-bg);
+  transition: var(--transition-theme);
+}
+
+#timerApp {
+  background-color: var(--color-card);
+  transition: var(--transition-theme);
+}
+
+#timingUi .clock * {
+  color: var(--color-text);
+  transition: var(--transition-theme);
+}
+
+#timingUi .background .yellow {
+  background-color: var(--color-block-green);
+  transition: var(--transition-theme);
+}
+
+#timingUi .background .gray {
+  background-color: var(--color-block-yellow);
+  transition: var(--transition-theme);
+}
+
+#stopwatchUi .time .timeText,
+#stopwatchUi .paused .timeText {
+  color: var(--color-text);
+  transition: var(--transition-theme);
+}
+
+#stopwatchUi .paused .background {
+  background-color: var(--color-paused-bg);
+  transition: var(--transition-theme);
+}
+
+/* ── Image buttons: invert in dark mode ── */
+/* Reset and Pause stay dark — no filter */
+#timingUi .start .button,
+#timingUi .start .line,
+#stopwatchUi .grayCat .rope .text .resume,
+#stopwatchUi .paused .pausedImage {
+  filter: var(--filter-buttons);
+  transition: filter 0.35s ease;
+}
+
+/* ── Cat ears ── */
+.cat-ear {
+  border-bottom-color: var(--color-ear);
+  transition: var(--transition-theme);
+}
+
+.cat-ear::after {
+  border-bottom-color: var(--color-ear-inner);
+  transition: var(--transition-theme);
+}
+
+/* ── Cozy decorations ── */
+.deco-star::before {
+  color: var(--color-star);
+}
+
+.deco-heart::before {
+  color: var(--color-heart);
+}
+
+.deco-moon::before {
+  color: var(--color-moon);
+}
+
+#deco-tag .tag-label {
+  background: var(--color-tag);
+  transition: var(--transition-theme);
+}
+
+#deco-byline {
+  color: var(--color-byline);
+  transition: var(--transition-theme);
+}
+
+/* ── Ambient background gradients in dark mode ── */
+body.dark::before {
+  background-image:
+    radial-gradient(circle at 20% 30%, rgba(166, 227, 161, 0.08) 0%, transparent 40%),
+    radial-gradient(circle at 80% 70%, rgba(249, 226, 175, 0.1) 0%, transparent 40%),
+    radial-gradient(circle at 50% 10%, rgba(180, 190, 254, 0.07) 0%, transparent 35%);
+}
+
+/* ── Sun / Moon toggle button ── */
+#theme-toggle {
+  position: fixed;
+  bottom: 48px;
+  right: 24px;
+  z-index: 100;
+
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: none;
+  outline: none;
+  cursor: pointer;
+
+  background-color: var(--color-card);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.18);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 20px;
+  line-height: 1;
+
+  transition:
+    background-color 0.35s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+
+  /* override the global position:absolute on #timerApp * */
+  position: fixed !important;
+}
+
+#theme-toggle:hover {
+  transform: scale(1.12);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.22);
+}
+
+#theme-toggle:active {
+  transform: scale(0.95);
+}
+
+/* mobile: nudge up so it clears the byline text */
+@media screen and (max-width: 500px) {
+  #theme-toggle {
+    bottom: 56px;
+    right: 16px;
+  }
+}

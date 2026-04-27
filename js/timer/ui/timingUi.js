@@ -12,8 +12,8 @@ class TimingUi {
     this.startButtonElement.onmousedown = onMouseDownButton;
     this.startButtonElement.onclick = onClickStartButton;
 
-    this.yellowBackgroundElement.style.opacity = "1";
-    this.grayBackgroundElement.style.opacity = "1";
+    this.yellowBackgroundElement.style.opacity = "0";
+    this.grayBackgroundElement.style.opacity = "0";
   }
 
   OpenOrCloseUi(_isOpen) {

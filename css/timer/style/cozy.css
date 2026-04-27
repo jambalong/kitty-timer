@@ -5,7 +5,7 @@
 
 /* ── Background ambient particles ── */
 body::before {
-  content: '';
+  content: "";
   position: fixed;
   inset: 0;
   background-image:
@@ -36,14 +36,14 @@ body::before {
 
 /* ── Paw print SVG decorations ── */
 .deco-paw::before {
-  content: '🐾';
+  content: "🐾";
   font-size: inherit;
   display: block;
 }
 
 /* ── Star sparkle ── */
 .deco-star::before {
-  content: '✦';
+  content: "✦";
   display: block;
   color: #f9e2af;
   font-size: inherit;
@@ -52,7 +52,7 @@ body::before {
 
 /* ── Heart ── */
 .deco-heart::before {
-  content: '♡';
+  content: "♡";
   display: block;
   color: #f38ba8;
   font-size: inherit;
@@ -60,14 +60,14 @@ body::before {
 
 /* ── Fish ── */
 .deco-fish::before {
-  content: '🐟';
+  content: "🐟";
   font-size: inherit;
   display: block;
 }
 
 /* ── Moon ── */
 .deco-moon::before {
-  content: '☾';
+  content: "☾";
   display: block;
   color: #cba6f7;
   font-size: inherit;
@@ -75,7 +75,7 @@ body::before {
 
 /* ── Yarn ── */
 .deco-yarn::before {
-  content: '🧶';
+  content: "🧶";
   font-size: inherit;
   display: block;
 }
@@ -100,10 +100,23 @@ body::before {
 
 /* ── Gentle sway animation ── */
 @keyframes decoSway {
-  0%, 100% { transform: translateX(0px) translateY(0px) rotate(-5deg); opacity: 0.7; }
-  25%       { transform: translateX(8px)  translateY(-6px) rotate(5deg);  opacity: 0.9; }
-  50%       { transform: translateX(-5px) translateY(-12px) rotate(-3deg); opacity: 0.8; }
-  75%       { transform: translateX(6px)  translateY(-6px) rotate(6deg);  opacity: 0.9; }
+  0%,
+  100% {
+    transform: translateX(0px) translateY(0px) rotate(-5deg);
+    opacity: 0.7;
+  }
+  25% {
+    transform: translateX(8px) translateY(-6px) rotate(5deg);
+    opacity: 0.9;
+  }
+  50% {
+    transform: translateX(-5px) translateY(-12px) rotate(-3deg);
+    opacity: 0.8;
+  }
+  75% {
+    transform: translateX(6px) translateY(-6px) rotate(6deg);
+    opacity: 0.9;
+  }
 }
 
 /* ── Corner decorative SVG panels ── */
@@ -117,10 +130,33 @@ body::before {
   opacity: 0.55;
 }
 
-#deco-corner-tl { top: 0;    left: 0;    width: 200px; height: 200px; }
-#deco-corner-tr { top: 0;    right: 0;   width: 200px; height: 200px; transform: scaleX(-1); }
-#deco-corner-bl { bottom: 0; left: 0;    width: 200px; height: 200px; transform: scaleY(-1); }
-#deco-corner-br { bottom: 0; right: 0;   width: 200px; height: 200px; transform: scale(-1,-1); }
+#deco-corner-tl {
+  top: 0;
+  left: 0;
+  width: 200px;
+  height: 200px;
+}
+#deco-corner-tr {
+  top: 0;
+  right: 0;
+  width: 200px;
+  height: 200px;
+  transform: scaleX(-1);
+}
+#deco-corner-bl {
+  bottom: 0;
+  left: 0;
+  width: 200px;
+  height: 200px;
+  transform: scaleY(-1);
+}
+#deco-corner-br {
+  bottom: 0;
+  right: 0;
+  width: 200px;
+  height: 200px;
+  transform: scale(-1, -1);
+}
 
 /* ── Deco shelf — little items sitting on top of the card ── */
 #deco-shelf {
@@ -152,20 +188,42 @@ body::before {
   opacity: 0;
 }
 .sparkle::before {
-  content: '✦';
+  content: "✦";
   color: #f9e2af;
   font-size: 14px;
-  text-shadow: 0 0 8px #f9e2af, 0 0 16px rgba(249, 226, 175, 0.5);
+  text-shadow:
+    0 0 8px #f9e2af,
+    0 0 16px rgba(249, 226, 175, 0.5);
   display: block;
 }
-.sparkle:nth-child(2)::before { color: #cba6f7; text-shadow: 0 0 8px #cba6f7; font-size: 10px; }
-.sparkle:nth-child(3)::before { color: #f38ba8; text-shadow: 0 0 8px #f38ba8; font-size: 12px; }
+.sparkle:nth-child(2)::before {
+  color: #cba6f7;
+  text-shadow: 0 0 8px #cba6f7;
+  font-size: 10px;
+}
+.sparkle:nth-child(3)::before {
+  color: #f38ba8;
+  text-shadow: 0 0 8px #f38ba8;
+  font-size: 12px;
+}
 
 @keyframes sparklePop {
-  0%   { opacity: 0;   transform: scale(0.3) rotate(0deg);   }
-  30%  { opacity: 1;   transform: scale(1.2) rotate(45deg);  }
-  60%  { opacity: 0.8; transform: scale(0.9) rotate(90deg);  }
-  100% { opacity: 0;   transform: scale(0.5) rotate(180deg); }
+  0% {
+    opacity: 0;
+    transform: scale(0.3) rotate(0deg);
+  }
+  30% {
+    opacity: 1;
+    transform: scale(1.2) rotate(45deg);
+  }
+  60% {
+    opacity: 0.8;
+    transform: scale(0.9) rotate(90deg);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.5) rotate(180deg);
+  }
 }
 
 /* ── Tiny cat ears on top of card ── */
@@ -196,7 +254,7 @@ body::before {
 }
 
 .cat-ear::after {
-  content: '';
+  content: "";
   position: absolute;
   left: -11px;
   top: 12px;
@@ -213,8 +271,15 @@ body::before {
 }
 
 @keyframes cardGlow {
-  0%, 100% { box-shadow: 0px 0px 20px 0px rgba(91, 91, 91, 0.25); }
-  50%       { box-shadow: 0px 0px 32px 6px rgba(166, 227, 161, 0.22), 0px 0px 20px 0px rgba(91, 91, 91, 0.2); }
+  0%,
+  100% {
+    box-shadow: 0px 0px 20px 0px rgba(91, 91, 91, 0.25);
+  }
+  50% {
+    box-shadow:
+      0px 0px 32px 6px rgba(166, 227, 161, 0.22),
+      0px 0px 20px 0px rgba(91, 91, 91, 0.2);
+  }
 }
 
 /* ── Badge centered between the cat ears ── */
@@ -250,8 +315,15 @@ body::before {
 }
 
 @keyframes tagBreathe {
-  0%, 100% { transform: scale(1);    box-shadow: 0 2px 8px rgba(243,139,168,0.45); }
-  50%       { transform: scale(1.06); box-shadow: 0 4px 14px rgba(243,139,168,0.60); }
+  0%,
+  100% {
+    transform: scale(1);
+    box-shadow: 0 2px 8px rgba(243, 139, 168, 0.45);
+  }
+  50% {
+    transform: scale(1.06);
+    box-shadow: 0 4px 14px rgba(243, 139, 168, 0.6);
+  }
 }
 
 /* ── Bottom cozy text ── */
@@ -271,27 +343,90 @@ body::before {
 }
 
 @keyframes bylineFade {
-  0%, 100% { opacity: 0.45; }
-  50%       { opacity: 0.75; }
+  0%,
+  100% {
+    opacity: 0.45;
+  }
+  50% {
+    opacity: 0.75;
+  }
 }
 
 /* ── Ambient floating items (js-generated) ── */
 
 /* Individual float paths — offset so they feel organic */
-.float-item-1  { left: 5%;   animation-duration: 18s; animation-delay: 0s;    font-size: 18px; }
-.float-item-2  { left: 12%;  animation-duration: 22s; animation-delay: -4s;   font-size: 13px; }
-.float-item-3  { left: 22%;  animation-duration: 16s; animation-delay: -9s;   font-size: 20px; }
-.float-item-4  { left: 33%;  animation-duration: 25s; animation-delay: -2s;   font-size: 11px; }
-.float-item-5  { left: 45%;  animation-duration: 19s; animation-delay: -13s;  font-size: 16px; }
-.float-item-6  { left: 55%;  animation-duration: 21s; animation-delay: -6s;   font-size: 14px; }
-.float-item-7  { left: 65%;  animation-duration: 17s; animation-delay: -11s;  font-size: 19px; }
-.float-item-8  { left: 75%;  animation-duration: 23s; animation-delay: -1s;   font-size: 12px; }
-.float-item-9  { left: 85%;  animation-duration: 20s; animation-delay: -7s;   font-size: 17px; }
-.float-item-10 { left: 92%;  animation-duration: 15s; animation-delay: -15s;  font-size: 10px; }
+.float-item-1 {
+  left: 5%;
+  animation-duration: 18s;
+  animation-delay: 0s;
+  font-size: 18px;
+}
+.float-item-2 {
+  left: 12%;
+  animation-duration: 22s;
+  animation-delay: -4s;
+  font-size: 13px;
+}
+.float-item-3 {
+  left: 22%;
+  animation-duration: 16s;
+  animation-delay: -9s;
+  font-size: 20px;
+}
+.float-item-4 {
+  left: 33%;
+  animation-duration: 25s;
+  animation-delay: -2s;
+  font-size: 11px;
+}
+.float-item-5 {
+  left: 45%;
+  animation-duration: 19s;
+  animation-delay: -13s;
+  font-size: 16px;
+}
+.float-item-6 {
+  left: 55%;
+  animation-duration: 21s;
+  animation-delay: -6s;
+  font-size: 14px;
+}
+.float-item-7 {
+  left: 65%;
+  animation-duration: 17s;
+  animation-delay: -11s;
+  font-size: 19px;
+}
+.float-item-8 {
+  left: 75%;
+  animation-duration: 23s;
+  animation-delay: -1s;
+  font-size: 12px;
+}
+.float-item-9 {
+  left: 85%;
+  animation-duration: 20s;
+  animation-delay: -7s;
+  font-size: 17px;
+}
+.float-item-10 {
+  left: 92%;
+  animation-duration: 15s;
+  animation-delay: -15s;
+  font-size: 10px;
+}
 
 /* Each floater starts from the bottom */
-.float-item-1, .float-item-2, .float-item-3, .float-item-4, .float-item-5,
-.float-item-6, .float-item-7, .float-item-8, .float-item-9, .float-item-10 {
+.float-item-1,
+.float-item-2,
+.float-item-3,
+.float-item-4,
+.float-item-5,
+.float-item-6,
+.float-item-7,
+.float-item-8,
+.float-item-9,
+.float-item-10 {
   bottom: -40px;
   top: auto;
 }

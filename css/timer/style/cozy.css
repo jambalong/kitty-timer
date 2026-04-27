@@ -329,7 +329,7 @@ body::before {
 /* ── Bottom cozy text ── */
 #deco-byline {
   position: fixed;
-  bottom: 18px;
+  bottom: 3.5rem;
   left: 50%;
   transform: translateX(-50%);
   pointer-events: none;

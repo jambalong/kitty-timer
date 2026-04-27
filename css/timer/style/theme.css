@@ -142,7 +142,7 @@ body.dark::before {
    Right edge = 50% + 197px. Toggle sits 12px beyond that. */
 #theme-toggle {
   position: fixed !important;
-  left: calc(50%);
+  left: calc(50% - 24px);
   top: calc(50% - 24rem);
   z-index: 100;
 
@@ -181,31 +181,31 @@ body.dark::before {
 /* mobile: adjust position to follow scaled card bottom */
 @media screen and (max-width: 500px) {
   #theme-toggle {
-    left: calc(50%);
+    left: calc(50% - 24px);
     top: calc(50% - 20rem);
   }
 }
 @media screen and (max-width: 450px) {
   #theme-toggle {
-    left: calc(50%);
+    left: calc(50% - 24px);
     top: calc(50% - 18rem);
   }
 }
 @media screen and (max-width: 400px) {
   #theme-toggle {
-    left: calc(50%);
+    left: calc(50% - 24px);
     top: calc(50% - 18rem);
   }
 }
 @media screen and (max-width: 375px) {
   #theme-toggle {
-    left: calc(50%);
+    left: calc(50% - 24px);
     top: calc(50% - 18rem);
   }
 }
 @media screen and (max-width: 320px) {
   #theme-toggle {
-    left: calc(50%);
+    left: calc(50% - 24px);
     top: calc(50% - 16rem);
   }
 }

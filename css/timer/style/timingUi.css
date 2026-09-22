@@ -126,3 +126,130 @@
   /* opacity */
   opacity: 1;
 }
+
+/* text: KittyTimer (decorative — must not block clicks to elements around it) */
+#timingUi .clock {
+  pointer-events: none;
+}
+
+/* mode toggle (Stopwatch / Nap) */
+#timingUi .modeToggle {
+  /* size */
+  width: 220px;
+  height: 28px;
+
+  /* position */
+  top: 249px;
+  left: 87px;
+}
+#timingUi .modeToggle .modeButton {
+  /* size */
+  width: 110px;
+  height: 28px;
+
+  /* position */
+  top: 0px;
+
+  /* font */
+  font-family: "KgAdipose";
+  font-size: 13px;
+  letter-spacing: 1px;
+  color: #4c4f69;
+  text-align: center;
+
+  /* cursor */
+  cursor: pointer;
+
+  /* transition */
+  transition: background-color 0.2s;
+}
+#timingUi .modeToggle .stopwatchMode {
+  left: 0px;
+  border-radius: 14px 0px 0px 14px;
+}
+#timingUi .modeToggle .napMode {
+  left: 110px;
+  border-radius: 0px 14px 14px 0px;
+}
+#timingUi .modeToggle .modeButton.active {
+  background-color: #a6e3a1;
+}
+
+/* duration setter (Nap mode) */
+#timingUi .durationSetter .durationValue {
+  /* size */
+  width: 394px;
+  height: 170px;
+
+  /* position */
+  top: 20px;
+  left: 0px;
+
+  /* font */
+  font-family: "KgAdipose";
+  font-weight: bold;
+  font-size: 130px;
+  text-align: center;
+  color: #4c4f69;
+  line-height: 170px;
+
+  /* monospace numbers */
+  font-variant-numeric: tabular-nums;
+
+  /* cannot select text */
+  user-select: none;
+
+  /* decorative — must not block clicks to the stepper buttons */
+  pointer-events: none;
+}
+#timingUi .durationSetter .durationUnit {
+  /* size */
+  width: 394px;
+  height: 36px;
+
+  /* position */
+  top: 192px;
+  left: 0px;
+
+  /* font */
+  font-family: "KgAdipose";
+  font-size: 20px;
+  letter-spacing: 4px;
+  text-align: center;
+  color: #4c4f69;
+
+  /* cannot select text */
+  user-select: none;
+
+  /* decorative — must not block clicks to the stepper buttons */
+  pointer-events: none;
+}
+#timingUi .durationSetter .stepDown,
+#timingUi .durationSetter .stepUp {
+  /* size */
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+
+  /* position */
+  top: 78px;
+
+  /* font */
+  font-family: "KgAdipose";
+  font-weight: bold;
+  font-size: 26px;
+  color: #4c4f69;
+  text-align: center;
+
+  /* color */
+  background-color: #dce0e8;
+
+  /* cursor */
+  cursor: pointer;
+}
+#timingUi .durationSetter .stepDown {
+  left: 32px;
+}
+#timingUi .durationSetter .stepUp {
+  left: 314px;
+}

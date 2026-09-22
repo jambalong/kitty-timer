@@ -84,6 +84,24 @@ body {
   transition: var(--transition-theme);
 }
 
+#timingUi .modeToggle .modeButton,
+#timingUi .durationSetter .durationValue,
+#timingUi .durationSetter .durationUnit {
+  color: var(--color-text);
+  transition: var(--transition-theme);
+}
+
+#timingUi .modeToggle .modeButton.active {
+  background-color: var(--color-block-green);
+  transition: var(--transition-theme);
+}
+
+#timingUi .durationSetter .stepDown,
+#timingUi .durationSetter .stepUp {
+  background-color: var(--color-paused-bg);
+  transition: var(--transition-theme);
+}
+
 /* ── Image buttons: invert in dark mode ── */
 /* Reset and Pause stay dark — no filter */
 #timingUi .start .button,

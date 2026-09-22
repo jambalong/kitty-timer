@@ -18,6 +18,8 @@ class StopwatchUi {
     this.timeTextElement = document.querySelector("#stopwatchUi .time .timeText");
     this.pausedPanelElement = document.querySelector("#stopwatchUi .paused");
     this.pausedTimeTextElement = document.querySelector("#stopwatchUi .paused .timeText");
+    // has the halfway self-care nudge already been shown for the current nap session?
+    this._halfwayMessageShown = false;
     /* change this reference (point to current TitleBarUi object) */
     let onMouseEnterBlackCatPanel = this.OnMouseEnterBlackCatPanel.bind(this);
     let onMouseLeaveBlackCatPanel = this.OnMouseLeaveBlackCatPanel.bind(this);
@@ -74,6 +76,45 @@ class StopwatchUi {
         param1: time */
   UpdateTimeText(_time) {
     this.timeTextElement.innerText = _time;
+  }
+  /* [call when a stopwatch or nap session starts running] */
+  OnSessionStart() {
+    // start ambient purring, if the user has it enabled
+    TimerApp.Systems.AudioSystem.StartPurr();
+    // nap-specific companion visuals
+    if (TimerApp.Datas.timerMode == ModeType.Focus) {
+      this._halfwayMessageShown = false;
+      if (window.NapCompanion) {
+        window.NapCompanion.OnSessionStart();
+      }
+    } else if (window.NapCompanion) {
+      window.NapCompanion.HideBuddy();
+    }
+  }
+  /* [call every tick while a nap countdown is running]
+        param1: progress ratio, 0 (just started) to 1 (finished) */
+  OnNapProgress(_progress) {
+    if (window.NapCompanion) {
+      window.NapCompanion.OnProgress(_progress);
+    }
+    // partway self-care nudge, only for longer sessions
+    if (this._halfwayMessageShown != true && _progress >= 0.5 && TimerApp.Datas.focusDurationMinutes > 25) {
+      this._halfwayMessageShown = true;
+      if (window.NapCompanion) {
+        window.NapCompanion.ShowSelfCareMessage();
+      }
+    }
+  }
+  /* [call once when a nap countdown reaches zero] */
+  OnNapComplete() {
+    TimerApp.Systems.TimeSystem.Pause();
+    TimerApp.Datas.currentState = StateType.None;
+    TimerApp.Systems.AudioSystem.StopPurr();
+    TimerApp.Systems.AudioSystem.PlayAudio(AudioType.NapComplete);
+    if (window.NapCompanion) {
+      window.NapCompanion.OnComplete();
+      window.NapCompanion.ShowSelfCareMessage();
+    }
   }
   /* events */
   // when mouse enters [black cat]
@@ -134,6 +175,11 @@ class StopwatchUi {
     TimerApp.Datas.currentTime.ChangeMinute(0);
     TimerApp.Datas.currentTime.ChangeSeconds(0);
     TimerApp.Datas.currentTime.ChangeMilliseconds(0);
+    // stop ambient purring and nap companion visuals
+    TimerApp.Systems.AudioSystem.StopPurr();
+    if (window.NapCompanion) {
+      window.NapCompanion.OnReset();
+    }
     // close [stopwatch ui]
     TimerApp.Uis.StopwatchUi.OpenOrCloseUi(false);
     // open [timing ui]
@@ -192,12 +238,18 @@ class StopwatchUi {
   }
   // when mouse clicks [gray cat mouth]
   OnClickGrayCatMouthButton() {
+    // nothing to pause/resume (e.g. a nap session already finished) — just give button feedback
+    if (TimerApp.Datas.currentState != StateType.Run && TimerApp.Datas.currentState != StateType.Pause) {
+      TimerApp.Systems.AudioSystem.PlayAudio(AudioType.ButtonUp);
+      return;
+    }
     // if pressed is [pause button]
     if (this.pausedPanelElement.style.visibility != "visible") {
       // then pause
       if (TimerApp.Datas.currentState == StateType.Run) {
         TimerApp.Datas.currentState = StateType.Pause;
         TimerApp.Systems.TimeSystem.Pause();
+        TimerApp.Systems.AudioSystem.StopPurr();
       }
       // change pause image to resume image
       this.grayCatPauseTextElement.style.opacity = "0";
@@ -213,6 +265,7 @@ class StopwatchUi {
       if (TimerApp.Datas.currentState == StateType.Pause) {
         TimerApp.Datas.currentState = StateType.Run;
         TimerApp.Systems.TimeSystem.Start();
+        TimerApp.Systems.AudioSystem.StartPurr();
       }
       // change resume image to pause image
       this.grayCatPauseTextElement.style.opacity = "1";

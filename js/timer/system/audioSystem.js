@@ -13,6 +13,8 @@ class AudioSystem {
         this.catDownAudios.push(document.querySelector("#audios .catDown1"));
         this.catDownAudios.push(document.querySelector("#audios .catDown2"));
         this.catDownAudios.push(document.querySelector("#audios .catDown3"));
+        this.napCompleteAudio = document.querySelector("#audios .napComplete");
+        this.purrAudio = document.querySelector("#audios .purr");
     }
     /* methods */
     /* [play audio]
@@ -42,10 +44,47 @@ class AudioSystem {
                     this.StopAudio(AudioType.CatUp);
                     this.StopAudio(AudioType.CatDown, _catDownIndex);
                     break;
+                case AudioType.NapComplete:
+                    this.napCompleteAudio.currentTime = 0;
+                    this.napCompleteAudio.play();
+                    break;
             }
         } catch (e) {
             console.log("Audio error:", e);
         }
+    }
+    /* [start purr ambience loop] (no-op if purring is disabled or app is muted) */
+    StartPurr() {
+        if (TimerApp.Datas.purrEnabled != true)
+            return;
+        if (TimerApp.Datas.volume <= 0)
+            return;
+        try {
+            this.purrAudio.play();
+        } catch (e) {}
+    }
+    /* [stop purr ambience loop] */
+    StopPurr() {
+        try {
+            this.purrAudio.pause();
+        } catch (e) {}
+    }
+    /* [enable/disable purr ambience]
+       param1: true = on, false = off */
+    UpdatePurrEnabled(_enabled) {
+        TimerApp.Datas.purrEnabled = _enabled;
+        if (_enabled != true) {
+            this.StopPurr();
+        } else if (TimerApp.Datas.currentState == StateType.Run) {
+            this.StartPurr();
+        }
+    }
+    /* [update purr ambience volume] (independent of master volume) */
+    UpdatePurrVolume(_volume) {
+        TimerApp.Datas.purrVolume = _volume;
+        try {
+            this.purrAudio.volume = _volume / 100;
+        } catch (e) {}
     }
     /* [stop audio] */
     StopAudio(_audioType, _noStopIndex = -1) {
@@ -83,6 +122,7 @@ class AudioSystem {
             for (let i = 0; i < this.catDownAudios.length; i++) {
                 this.catDownAudios[i].volume = _volume;
             }
+            this.napCompleteAudio.volume = _volume;
         } catch (e) {}
     }
 }

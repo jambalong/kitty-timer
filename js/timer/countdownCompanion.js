@@ -83,15 +83,34 @@
     }
   }
 
-  function showMessage() {
+  // seconds of visible page time since the last tip (or schedule restart)
+  var visibleSeconds = 0;
+
+  function showMessage(_source) {
     try {
       if (TimerApp.Datas.breakTipsEnabled != true) return;
     } catch (e) {
       return;
     }
     if (!toastEl) return;
+    // an interval tip never stacks on, or swaps text under, a tip already on screen
+    if (_source === "interval" && toastEl.classList.contains("visible")) {
+      visibleSeconds = 0;
+      return;
+    }
     toastTextEl.textContent = pickMessage();
     toastEl.classList.add("visible");
+    visibleSeconds = 0;
+  }
+
+  function onTipTick() {
+    if (document.hidden) return;
+    visibleSeconds++;
+    try {
+      var minutes = TimerApp.Datas.breakTipsIntervalMinutes;
+      if (TimerApp.Datas.breakTipsEnabled != true || !(minutes > 0)) return;
+      if (visibleSeconds >= minutes * 60) showMessage("interval");
+    } catch (e) {}
   }
 
   function hideMessage() {
@@ -115,12 +134,18 @@
       hideMessage();
     },
     HideBuddy: hideBuddy,
-    ShowSelfCareMessage: showMessage,
+    ShowSelfCareMessage: function () {
+      showMessage();
+    },
+    RestartTipSchedule: function () {
+      visibleSeconds = 0;
+    },
   };
 
   function init() {
     buildBuddy();
     buildToast();
+    window.setInterval(onTipTick, 1000);
   }
 
   if (document.readyState === "loading") {

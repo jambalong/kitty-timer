@@ -18,8 +18,6 @@ class StopwatchUi {
     this.timeTextElement = document.querySelector("#stopwatchUi .time .timeText");
     this.pausedPanelElement = document.querySelector("#stopwatchUi .paused");
     this.pausedTimeTextElement = document.querySelector("#stopwatchUi .paused .timeText");
-    // has the halfway self-care nudge already been shown for the current countdown session?
-    this._halfwayMessageShown = false;
     /* change this reference (point to current TitleBarUi object) */
     let onMouseEnterBlackCatPanel = this.OnMouseEnterBlackCatPanel.bind(this);
     let onMouseLeaveBlackCatPanel = this.OnMouseLeaveBlackCatPanel.bind(this);
@@ -81,7 +79,6 @@ class StopwatchUi {
   OnSessionStart() {
     // countdown-specific companion visuals
     if (TimerApp.Datas.timerMode == ModeType.Countdown) {
-      this._halfwayMessageShown = false;
       if (window.CountdownCompanion) {
         window.CountdownCompanion.OnSessionStart();
       }
@@ -94,13 +91,6 @@ class StopwatchUi {
   OnCountdownProgress(_progress) {
     if (window.CountdownCompanion) {
       window.CountdownCompanion.OnProgress(_progress);
-    }
-    // partway self-care nudge, only for longer sessions
-    if (this._halfwayMessageShown != true && _progress >= 0.5 && TimerApp.Datas.countdownDurationMinutes > 25) {
-      this._halfwayMessageShown = true;
-      if (window.CountdownCompanion) {
-        window.CountdownCompanion.ShowSelfCareMessage();
-      }
     }
   }
   /* [call once when a countdown reaches zero] */

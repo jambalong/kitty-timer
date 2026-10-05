@@ -6,6 +6,7 @@ class SaveSystem {
             _localStorage.setItem("volume", TimerApp.Datas.volume + "");
             _localStorage.setItem("countdownDurationMinutes", TimerApp.Datas.countdownDurationMinutes + "");
             _localStorage.setItem("breakTipsEnabled", TimerApp.Datas.breakTipsEnabled ? "1" : "0");
+            _localStorage.setItem("breakTipsIntervalMinutes", TimerApp.Datas.breakTipsIntervalMinutes + "");
             _localStorage.setItem("purrEnabled", TimerApp.Datas.purrEnabled ? "1" : "0");
             _localStorage.setItem("purrVolume", TimerApp.Datas.purrVolume + "");
         } catch (e) {}
@@ -25,6 +26,8 @@ class SaveSystem {
             if (_breakTipsEnabled != null) {
                 TimerApp.Datas.breakTipsEnabled = _breakTipsEnabled == "1";
             }
+            let _breakTipsIntervalMinutes = window.parseInt(_localStorage.getItem("breakTipsIntervalMinutes"));
+            TimerApp.Datas.breakTipsIntervalMinutes = [20, 30, 60].includes(_breakTipsIntervalMinutes) ? _breakTipsIntervalMinutes : 0;
             let _purrEnabled = _localStorage.getItem("purrEnabled");
             if (_purrEnabled != null) {
                 TimerApp.Datas.purrEnabled = _purrEnabled == "1";

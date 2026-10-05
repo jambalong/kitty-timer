@@ -9,13 +9,17 @@
 (function () {
   "use strict";
 
-  var panelEl, gearBtn, breakTipsToggleBtn, purrToggleBtn, purrVolumeInput, purrVolumeRow;
+  var panelEl, gearBtn, breakTipsToggleBtn, tipIntervalBtn, purrToggleBtn, purrVolumeInput, purrVolumeRow;
 
   function refresh() {
     try {
       var breakTipsOn = TimerApp.Datas.breakTipsEnabled == true;
       breakTipsToggleBtn.classList.toggle("on", breakTipsOn);
       breakTipsToggleBtn.textContent = breakTipsOn ? "Break tips: on" : "Break tips: off";
+
+      var minutes = TimerApp.Datas.breakTipsIntervalMinutes;
+      tipIntervalBtn.textContent = minutes > 0 ? "Tip every: " + minutes + " min" : "Tip every: off";
+      tipIntervalBtn.style.display = breakTipsOn ? "block" : "none";
 
       var purrOn = TimerApp.Datas.purrEnabled == true;
       purrToggleBtn.classList.toggle("on", purrOn);
@@ -34,6 +38,18 @@
     try {
       TimerApp.Datas.breakTipsEnabled = !TimerApp.Datas.breakTipsEnabled;
       TimerApp.Systems.SaveSystem.Save();
+      if (window.CountdownCompanion) window.CountdownCompanion.RestartTipSchedule();
+      refresh();
+    } catch (e) {}
+  }
+
+  function onCycleTipInterval() {
+    try {
+      var choices = [0, 20, 30, 60];
+      var next = (choices.indexOf(TimerApp.Datas.breakTipsIntervalMinutes) + 1) % choices.length;
+      TimerApp.Datas.breakTipsIntervalMinutes = choices[next];
+      TimerApp.Systems.SaveSystem.Save();
+      if (window.CountdownCompanion) window.CountdownCompanion.RestartTipSchedule();
       refresh();
     } catch (e) {}
   }
@@ -65,6 +81,7 @@
     panelEl.id = "settingsPanel";
     panelEl.innerHTML =
       '<button class="settingsRow breakTipsToggleBtn"></button>' +
+      '<button class="settingsRow tipIntervalBtn"></button>' +
       '<button class="settingsRow purrToggleBtn"></button>' +
       '<div class="settingsRow purrVolumeRow">' +
       '<span class="label">Purr volume</span>' +
@@ -73,12 +90,14 @@
     document.body.appendChild(panelEl);
 
     breakTipsToggleBtn = panelEl.querySelector(".breakTipsToggleBtn");
+    tipIntervalBtn = panelEl.querySelector(".tipIntervalBtn");
     purrToggleBtn = panelEl.querySelector(".purrToggleBtn");
     purrVolumeRow = panelEl.querySelector(".purrVolumeRow");
     purrVolumeInput = panelEl.querySelector(".purrVolumeInput");
 
     gearBtn.addEventListener("click", togglePanel);
     breakTipsToggleBtn.addEventListener("click", onToggleBreakTips);
+    tipIntervalBtn.addEventListener("click", onCycleTipInterval);
     purrToggleBtn.addEventListener("click", onTogglePurr);
     purrVolumeInput.addEventListener("input", onChangePurrVolume);
 

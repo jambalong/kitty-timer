@@ -5,16 +5,16 @@ Autonomous overnight session on branch `feature/kitty-timer-enhancements`
 a real headless-browser pass (Playwright, installed just for this session —
 see Testing notes), and committed incrementally. No check-ins were needed.
 
-## 1. Focus/Nap Timer mode
+## 1. Countdown Timer mode
 
-- Added a Stopwatch/Nap toggle and a 5-90 minute duration stepper (steps of 5)
+- Added a Stopwatch/Countdown toggle and a 5-90 minute duration stepper (steps of 5)
   to the timing screen, in the previously-unused 44px gap between the clock
   text and the Start button.
-- Nap mode counts *down* instead of up (`TimeSystem` now branches on a new
+- Countdown mode counts *down* instead of up (`TimeSystem` now branches on a new
   `ModeType`), freezes at zero, and plays `asset/audio/Complete.mp3` — an
   asset that already existed in the repo but was never wired up anywhere.
 - The last-used duration persists via `localStorage` through the existing
-  `SaveSystem`/`Datas` pair (`focusDurationMinutes`, clamped 5-90 on load).
+  `SaveSystem`/`Datas` pair (`countdownDurationMinutes`, clamped 5-90 on load).
 - A small sleepy cat badge (fixed, top-left corner) tracks progress through
   three stages — awake / drowsy / asleep — with a floating "Zzz" once mostly
   asleep. Kept as a viewport-corner badge rather than pixel art fitted inside
@@ -28,11 +28,11 @@ see Testing notes), and committed incrementally. No check-ins were needed.
   (stretch, water, rest your eyes, breathe, shoulders, a small smile), shown
   on nap completion and, for sessions longer than 25 minutes, once past the
   halfway point.
-- A settings toggle ("Nap tips: on/off") fully disables it; the preference
+- A settings toggle ("Break tips: on/off") fully disables it; the preference
   persists via `localStorage`.
-- Built as `js/timer/napCompanion.js`, a self-contained module in the same
+- Built as `js/timer/countdownCompanion.js`, a self-contained module in the same
   style as the existing `cozy.js`/`theme.js` additions. The core `Ui` classes
-  only ever call it through `if (window.NapCompanion)` guards, so it can
+  only ever call it through `if (window.CountdownCompanion)` guards, so it can
   never break the timer itself even if something about it were to fail.
 
 ## 3. Calming purr ambience
@@ -40,24 +40,21 @@ see Testing notes), and committed incrementally. No check-ins were needed.
 - A soft, seamlessly-looping purr plays through the *existing* `AudioSystem`
   (new `StartPurr`/`StopPurr`/`UpdatePurrEnabled`/`UpdatePurrVolume` methods
   on the same class, not a parallel audio system) whenever a timer — stopwatch
-  or nap — is running, and pauses/resumes with it.
+  or countdown — is running, and pauses/resumes with it.
 - Off by default: a new continuous looping sound autoplaying for existing
   users felt like the riskier default, so it's opt-in.
 - A gear-icon settings popover (`js/timer/settingsPanel.js`) holds the purr
-  on/off toggle, its own volume slider, and the nap-tips toggle from feature 2.
+  on/off toggle, its own volume slider, and the break-tips toggle from feature 2.
   All three preferences persist via the existing `SaveSystem`.
-- **No purr recording existed in the asset folder**, so I synthesized one: a
-  2-second, perfectly-loopable WAV built from a handful of low-frequency sine
-  harmonics (30/45/60/90/120 Hz) amplitude-modulated at ~28 Hz to approximate
-  a cat's purr rumble. All component frequencies are exact multiples of
-  1/duration, so the loop has no audible seam or click. Generated with a
-  throwaway Node script (not committed) — only the resulting
-  `asset/audio/Purr.wav` is part of the repo.
+- The purr uses the supplied recording `asset/audio/Purr.mp3` (an earlier
+  synthesized WAV placeholder was replaced). It is ~1.3 MB and loops via the
+  `<audio loop>` attribute; MP3 encoder padding may cause a very small gap at
+  the loop point.
 
 ## Non-obvious decisions
 
 - **Completion state reuses `StateType.None`**, not a new enum value. Once a
-  nap finishes, `currentState` goes back to `None` (same value used before a
+  countdown finishes, `currentState` goes back to `None` (same value used before a
   session starts), which stops the tick loop and needed no other state-machine
   changes. The one wrinkle: the gray cat (pause/resume) becomes clickable
   while nothing is running/paused. Fixed with a small guard in
@@ -90,7 +87,7 @@ installed Playwright's Chromium (`npx playwright install chromium`, one-time,
 not a project dependency — nothing was added to the repo or any package
 manifest) and drove the real `index.html` through several scripted passes:
 
-- Mode switching, duration stepping, starting a nap, and the pointer-events
+- Mode switching, duration stepping, starting a countdown, and the pointer-events
   bug above (initially reproduced, then fixed and re-verified).
 - Fast-forwarding the countdown via `TimerApp.Systems.TimeSystem` internals
   (no `sleep`-based waiting for a 5+ minute timer) to verify the drowsy/asleep
@@ -100,17 +97,26 @@ manifest) and drove the real `index.html` through several scripted passes:
   resume, reset) and dark mode with all the new elements — no visual or
   functional regressions.
 - Confirmed the purr `<audio>` element's actual `paused`/`volume` state
-  tracks pause/resume/completion correctly, and that `focusDurationMinutes`,
-  `purrEnabled`, `purrVolume`, and `napMessagesEnabled` round-trip through
+  tracks pause/resume/completion correctly, and that `countdownDurationMinutes`,
+  `purrEnabled`, `purrVolume`, and `breakTipsEnabled` round-trip through
   `localStorage`.
 
 No blockers were hit — all three features were completed in full.
 
 ## Commits (oldest to newest)
 
-1. `feat: add data/audio/save/time plumbing for focus timer and purr ambience`
-2. `feat: add Focus/Nap countdown mode alongside the stopwatch`
-3. `feat: add self-care break companion for nap sessions`
+1. `feat: add data/audio/save/time plumbing for countdown timer and purr ambience`
+2. `feat: add Countdown mode alongside the stopwatch`
+3. `feat: add self-care break companion for countdown sessions`
 4. `feat: add purr ambience with a settings panel`
 
 Branch is clean, not on `main`, and nothing was pushed or fetched.
+
+## Follow-up commits (rename, mp3, slider)
+
+5. `feat: use Purr.mp3 for purr ambience`
+6. `fix: fit purr volume slider inside settings panel`
+7. `refactor: rename Nap mode to Countdown` — also renames the saved keys to
+   `countdownDurationMinutes` / `breakTipsEnabled`; `SaveSystem.Load()` still
+   falls back to the old `focusDurationMinutes` / `napMessagesEnabled` keys so
+   existing users keep their preferences.

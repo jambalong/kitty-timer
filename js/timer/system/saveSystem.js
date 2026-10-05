@@ -36,6 +36,7 @@ class SaveSystem {
             if (TimerApp.Systems && TimerApp.Systems.AudioSystem) {
                 TimerApp.Systems.AudioSystem.UpdateVolume(TimerApp.Datas.volume);
                 TimerApp.Systems.AudioSystem.UpdatePurrVolume(TimerApp.Datas.purrVolume);
+                TimerApp.Systems.AudioSystem.StartPurr();
             }
             if (TimerApp.Uis && TimerApp.Uis.TimingUi) {
                 TimerApp.Uis.TimingUi.RefreshDurationText();

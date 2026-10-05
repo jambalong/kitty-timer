@@ -60,8 +60,26 @@ class AudioSystem {
         if (TimerApp.Datas.volume <= 0)
             return;
         try {
-            this.purrAudio.play();
+            let _playPromise = this.purrAudio.play();
+            // browsers block audio before the first user interaction (e.g. purr was saved as on)
+            if (_playPromise && _playPromise.catch) {
+                _playPromise.catch(() => this.StartPurrOnFirstInteraction());
+            }
         } catch (e) {}
+    }
+    /* [retry starting the purr on the user's first click/key press] */
+    StartPurrOnFirstInteraction() {
+        if (this.purrRetryPending == true)
+            return;
+        this.purrRetryPending = true;
+        let _retry = () => {
+            document.removeEventListener("pointerdown", _retry);
+            document.removeEventListener("keydown", _retry);
+            this.purrRetryPending = false;
+            this.StartPurr();
+        };
+        document.addEventListener("pointerdown", _retry);
+        document.addEventListener("keydown", _retry);
     }
     /* [stop purr ambience loop] */
     StopPurr() {
@@ -75,7 +93,7 @@ class AudioSystem {
         TimerApp.Datas.purrEnabled = _enabled;
         if (_enabled != true) {
             this.StopPurr();
-        } else if (TimerApp.Datas.currentState == StateType.Run) {
+        } else {
             this.StartPurr();
         }
     }

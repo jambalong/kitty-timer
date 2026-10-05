@@ -79,8 +79,6 @@ class StopwatchUi {
   }
   /* [call when a stopwatch or countdown session starts running] */
   OnSessionStart() {
-    // start ambient purring, if the user has it enabled
-    TimerApp.Systems.AudioSystem.StartPurr();
     // countdown-specific companion visuals
     if (TimerApp.Datas.timerMode == ModeType.Countdown) {
       this._halfwayMessageShown = false;
@@ -109,7 +107,6 @@ class StopwatchUi {
   OnCountdownComplete() {
     TimerApp.Systems.TimeSystem.Pause();
     TimerApp.Datas.currentState = StateType.None;
-    TimerApp.Systems.AudioSystem.StopPurr();
     TimerApp.Systems.AudioSystem.PlayAudio(AudioType.CountdownComplete);
     if (window.CountdownCompanion) {
       window.CountdownCompanion.OnComplete();
@@ -175,8 +172,7 @@ class StopwatchUi {
     TimerApp.Datas.currentTime.ChangeMinute(0);
     TimerApp.Datas.currentTime.ChangeSeconds(0);
     TimerApp.Datas.currentTime.ChangeMilliseconds(0);
-    // stop ambient purring and countdown companion visuals
-    TimerApp.Systems.AudioSystem.StopPurr();
+    // hide countdown companion visuals
     if (window.CountdownCompanion) {
       window.CountdownCompanion.OnReset();
     }
@@ -249,7 +245,6 @@ class StopwatchUi {
       if (TimerApp.Datas.currentState == StateType.Run) {
         TimerApp.Datas.currentState = StateType.Pause;
         TimerApp.Systems.TimeSystem.Pause();
-        TimerApp.Systems.AudioSystem.StopPurr();
       }
       // change pause image to resume image
       this.grayCatPauseTextElement.style.opacity = "0";
@@ -265,7 +260,6 @@ class StopwatchUi {
       if (TimerApp.Datas.currentState == StateType.Pause) {
         TimerApp.Datas.currentState = StateType.Run;
         TimerApp.Systems.TimeSystem.Start();
-        TimerApp.Systems.AudioSystem.StartPurr();
       }
       // change resume image to pause image
       this.grayCatPauseTextElement.style.opacity = "1";

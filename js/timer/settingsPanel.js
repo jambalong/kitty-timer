@@ -1,6 +1,6 @@
 /* ============================================
    KittyTimer — Settings Panel
-   Small floating gear button with a popover for nap-tip and purr
+   Small floating gear button with a popover for break-tip and purr
    ambience controls. Persists through the existing SaveSystem.
    Purely additive — reads/writes TimerApp.Datas via public system
    methods, same as any other Ui class would.
@@ -9,13 +9,13 @@
 (function () {
   "use strict";
 
-  var panelEl, gearBtn, napToggleBtn, purrToggleBtn, purrVolumeInput, purrVolumeRow;
+  var panelEl, gearBtn, breakTipsToggleBtn, purrToggleBtn, purrVolumeInput, purrVolumeRow;
 
   function refresh() {
     try {
-      var napOn = TimerApp.Datas.napMessagesEnabled == true;
-      napToggleBtn.classList.toggle("on", napOn);
-      napToggleBtn.textContent = napOn ? "Nap tips: on" : "Nap tips: off";
+      var breakTipsOn = TimerApp.Datas.breakTipsEnabled == true;
+      breakTipsToggleBtn.classList.toggle("on", breakTipsOn);
+      breakTipsToggleBtn.textContent = breakTipsOn ? "Break tips: on" : "Break tips: off";
 
       var purrOn = TimerApp.Datas.purrEnabled == true;
       purrToggleBtn.classList.toggle("on", purrOn);
@@ -30,9 +30,9 @@
     panelEl.classList.toggle("open");
   }
 
-  function onToggleNapMessages() {
+  function onToggleBreakTips() {
     try {
-      TimerApp.Datas.napMessagesEnabled = !TimerApp.Datas.napMessagesEnabled;
+      TimerApp.Datas.breakTipsEnabled = !TimerApp.Datas.breakTipsEnabled;
       TimerApp.Systems.SaveSystem.Save();
       refresh();
     } catch (e) {}
@@ -64,7 +64,7 @@
     panelEl = document.createElement("div");
     panelEl.id = "settingsPanel";
     panelEl.innerHTML =
-      '<button class="settingsRow napToggleBtn"></button>' +
+      '<button class="settingsRow breakTipsToggleBtn"></button>' +
       '<button class="settingsRow purrToggleBtn"></button>' +
       '<div class="settingsRow purrVolumeRow">' +
       '<span class="label">Purr volume</span>' +
@@ -72,13 +72,13 @@
       "</div>";
     document.body.appendChild(panelEl);
 
-    napToggleBtn = panelEl.querySelector(".napToggleBtn");
+    breakTipsToggleBtn = panelEl.querySelector(".breakTipsToggleBtn");
     purrToggleBtn = panelEl.querySelector(".purrToggleBtn");
     purrVolumeRow = panelEl.querySelector(".purrVolumeRow");
     purrVolumeInput = panelEl.querySelector(".purrVolumeInput");
 
     gearBtn.addEventListener("click", togglePanel);
-    napToggleBtn.addEventListener("click", onToggleNapMessages);
+    breakTipsToggleBtn.addEventListener("click", onToggleBreakTips);
     purrToggleBtn.addEventListener("click", onTogglePurr);
     purrVolumeInput.addEventListener("input", onChangePurrVolume);
 

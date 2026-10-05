@@ -14,11 +14,11 @@ var AudioType;
     AudioType[AudioType["CatDown"] = 3] = "CatDown";
     AudioType[AudioType["ButtonDown"] = 4] = "ButtonDown";
     AudioType[AudioType["ButtonUp"] = 5] = "ButtonUp";
-    AudioType[AudioType["NapComplete"] = 6] = "NapComplete";
+    AudioType[AudioType["CountdownComplete"] = 6] = "CountdownComplete";
 })(AudioType || (AudioType = {}));
 // timer mode type
 var ModeType;
 (function (ModeType) {
     ModeType[ModeType["Stopwatch"] = 0] = "Stopwatch";
-    ModeType[ModeType["Focus"] = 1] = "Focus";
+    ModeType[ModeType["Countdown"] = 1] = "Countdown";
 })(ModeType || (ModeType = {}));

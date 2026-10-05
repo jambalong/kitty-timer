@@ -13,7 +13,7 @@ class AudioSystem {
         this.catDownAudios.push(document.querySelector("#audios .catDown1"));
         this.catDownAudios.push(document.querySelector("#audios .catDown2"));
         this.catDownAudios.push(document.querySelector("#audios .catDown3"));
-        this.napCompleteAudio = document.querySelector("#audios .napComplete");
+        this.countdownCompleteAudio = document.querySelector("#audios .countdownComplete");
         this.purrAudio = document.querySelector("#audios .purr");
     }
     /* methods */
@@ -44,9 +44,9 @@ class AudioSystem {
                     this.StopAudio(AudioType.CatUp);
                     this.StopAudio(AudioType.CatDown, _catDownIndex);
                     break;
-                case AudioType.NapComplete:
-                    this.napCompleteAudio.currentTime = 0;
-                    this.napCompleteAudio.play();
+                case AudioType.CountdownComplete:
+                    this.countdownCompleteAudio.currentTime = 0;
+                    this.countdownCompleteAudio.play();
                     break;
             }
         } catch (e) {
@@ -122,7 +122,7 @@ class AudioSystem {
             for (let i = 0; i < this.catDownAudios.length; i++) {
                 this.catDownAudios[i].volume = _volume;
             }
-            this.napCompleteAudio.volume = _volume;
+            this.countdownCompleteAudio.volume = _volume;
         } catch (e) {}
     }
 }

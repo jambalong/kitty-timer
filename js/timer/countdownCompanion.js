@@ -1,8 +1,8 @@
 /* ============================================
-   KittyTimer — Nap Companion
-   Sleepy buddy badge + self-care nudges for Focus/Nap sessions.
+   KittyTimer — Countdown Companion
+   Sleepy buddy badge + self-care nudges for Countdown sessions.
    Purely additive — the core Ui classes call these hooks optionally
-   (guarded by `if (window.NapCompanion)`), so this file can be missing
+   (guarded by `if (window.CountdownCompanion)`), so this file can be missing
    or fail to load without breaking the timer itself.
    ============================================ */
 
@@ -34,7 +34,7 @@
 
   function buildBuddy() {
     buddyEl = document.createElement("div");
-    buddyEl.id = "napBuddy";
+    buddyEl.id = "countdownBuddy";
     buddyEl.setAttribute("aria-hidden", "true");
     buddyEl.innerHTML =
       '<span class="face">🙂</span>' +
@@ -85,7 +85,7 @@
 
   function showMessage() {
     try {
-      if (TimerApp.Datas.napMessagesEnabled != true) return;
+      if (TimerApp.Datas.breakTipsEnabled != true) return;
     } catch (e) {
       return;
     }
@@ -98,7 +98,7 @@
     if (toastEl) toastEl.classList.remove("visible");
   }
 
-  window.NapCompanion = {
+  window.CountdownCompanion = {
     OnSessionStart: function () {
       setProgress(0);
       showBuddy();

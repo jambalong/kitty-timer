@@ -132,7 +132,7 @@
   pointer-events: none;
 }
 
-/* mode toggle (Stopwatch / Nap) */
+/* mode toggle (Stopwatch / Countdown) */
 #timingUi .modeToggle {
   /* size */
   width: 220px;
@@ -167,7 +167,7 @@
   left: 0px;
   border-radius: 14px 0px 0px 14px;
 }
-#timingUi .modeToggle .napMode {
+#timingUi .modeToggle .countdownMode {
   left: 110px;
   border-radius: 0px 14px 14px 0px;
 }
@@ -175,7 +175,7 @@
   background-color: #a6e3a1;
 }
 
-/* duration setter (Nap mode) */
+/* duration setter (Countdown mode) */
 #timingUi .durationSetter .durationValue {
   /* size */
   width: 394px;

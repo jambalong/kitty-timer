@@ -4,8 +4,8 @@ class SaveSystem {
         try {
             let _localStorage = window.localStorage;
             _localStorage.setItem("volume", TimerApp.Datas.volume + "");
-            _localStorage.setItem("focusDurationMinutes", TimerApp.Datas.focusDurationMinutes + "");
-            _localStorage.setItem("napMessagesEnabled", TimerApp.Datas.napMessagesEnabled ? "1" : "0");
+            _localStorage.setItem("countdownDurationMinutes", TimerApp.Datas.countdownDurationMinutes + "");
+            _localStorage.setItem("breakTipsEnabled", TimerApp.Datas.breakTipsEnabled ? "1" : "0");
             _localStorage.setItem("purrEnabled", TimerApp.Datas.purrEnabled ? "1" : "0");
             _localStorage.setItem("purrVolume", TimerApp.Datas.purrVolume + "");
         } catch (e) {}
@@ -17,13 +17,13 @@ class SaveSystem {
             if (_volume != null) {
                 TimerApp.Datas.volume = window.parseInt(_volume);
             }
-            let _focusDurationMinutes = _localStorage.getItem("focusDurationMinutes");
-            if (_focusDurationMinutes != null) {
-                TimerApp.Datas.focusDurationMinutes = Tools.ClampNumber(window.parseInt(_focusDurationMinutes), 5, 90);
+            let _countdownDurationMinutes = _localStorage.getItem("countdownDurationMinutes") ?? _localStorage.getItem("focusDurationMinutes");
+            if (_countdownDurationMinutes != null) {
+                TimerApp.Datas.countdownDurationMinutes = Tools.ClampNumber(window.parseInt(_countdownDurationMinutes), 5, 90);
             }
-            let _napMessagesEnabled = _localStorage.getItem("napMessagesEnabled");
-            if (_napMessagesEnabled != null) {
-                TimerApp.Datas.napMessagesEnabled = _napMessagesEnabled == "1";
+            let _breakTipsEnabled = _localStorage.getItem("breakTipsEnabled") ?? _localStorage.getItem("napMessagesEnabled");
+            if (_breakTipsEnabled != null) {
+                TimerApp.Datas.breakTipsEnabled = _breakTipsEnabled == "1";
             }
             let _purrEnabled = _localStorage.getItem("purrEnabled");
             if (_purrEnabled != null) {

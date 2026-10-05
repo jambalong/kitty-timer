@@ -12,19 +12,19 @@ class TimingUi {
     this.stepDownButtonElement = document.querySelector("#timingUi .durationSetter .stepDown");
     this.stepUpButtonElement = document.querySelector("#timingUi .durationSetter .stepUp");
     this.stopwatchModeButtonElement = document.querySelector("#timingUi .modeToggle .stopwatchMode");
-    this.napModeButtonElement = document.querySelector("#timingUi .modeToggle .napMode");
+    this.countdownModeButtonElement = document.querySelector("#timingUi .modeToggle .countdownMode");
 
     let onClickStartButton = this.OnClickStartButton.bind(this);
     let onMouseDownButton = this.OnMouseDownButton.bind(this);
     let onClickStopwatchMode = this.OnClickStopwatchMode.bind(this);
-    let onClickNapMode = this.OnClickNapMode.bind(this);
+    let onClickCountdownMode = this.OnClickCountdownMode.bind(this);
     let onClickStepDown = this.OnClickStepDown.bind(this);
     let onClickStepUp = this.OnClickStepUp.bind(this);
 
     this.startButtonElement.onmousedown = onMouseDownButton;
     this.startButtonElement.onclick = onClickStartButton;
     this.stopwatchModeButtonElement.onclick = onClickStopwatchMode;
-    this.napModeButtonElement.onclick = onClickNapMode;
+    this.countdownModeButtonElement.onclick = onClickCountdownMode;
     this.stepDownButtonElement.onclick = onClickStepDown;
     this.stepUpButtonElement.onclick = onClickStepUp;
 
@@ -49,7 +49,7 @@ class TimingUi {
   /* [refresh the minutes number shown on the duration stepper]
        (call after loading saved data, or after +/- is pressed) */
   RefreshDurationText() {
-    this.durationValueElement.innerText = TimerApp.Datas.focusDurationMinutes + "";
+    this.durationValueElement.innerText = TimerApp.Datas.countdownDurationMinutes + "";
   }
 
   OnMouseDownButton() {
@@ -57,9 +57,9 @@ class TimingUi {
   }
 
   OnClickStartButton() {
-    if (TimerApp.Datas.timerMode == ModeType.Focus) {
-      let _totalDurationMs = TimerApp.Datas.focusDurationMinutes * 60000;
-      TimerApp.Datas.currentTime.ChangeMinute(TimerApp.Datas.focusDurationMinutes);
+    if (TimerApp.Datas.timerMode == ModeType.Countdown) {
+      let _totalDurationMs = TimerApp.Datas.countdownDurationMinutes * 60000;
+      TimerApp.Datas.currentTime.ChangeMinute(TimerApp.Datas.countdownDurationMinutes);
       TimerApp.Datas.currentTime.ChangeSeconds(0);
       TimerApp.Datas.currentTime.ChangeMilliseconds(0);
       TimerApp.Uis.StopwatchUi.UpdateTimeText(TimerApp.Datas.currentTime.ToString());
@@ -80,18 +80,18 @@ class TimingUi {
     if (TimerApp.Datas.timerMode != ModeType.Stopwatch) {
       TimerApp.Datas.timerMode = ModeType.Stopwatch;
       this.stopwatchModeButtonElement.classList.add("active");
-      this.napModeButtonElement.classList.remove("active");
+      this.countdownModeButtonElement.classList.remove("active");
       this.clockElement.style.display = "block";
       this.durationSetterElement.style.display = "none";
     }
     TimerApp.Systems.AudioSystem.PlayAudio(AudioType.ButtonUp);
   }
 
-  /* [switch to Focus/Nap mode] */
-  OnClickNapMode() {
-    if (TimerApp.Datas.timerMode != ModeType.Focus) {
-      TimerApp.Datas.timerMode = ModeType.Focus;
-      this.napModeButtonElement.classList.add("active");
+  /* [switch to Countdown mode] */
+  OnClickCountdownMode() {
+    if (TimerApp.Datas.timerMode != ModeType.Countdown) {
+      TimerApp.Datas.timerMode = ModeType.Countdown;
+      this.countdownModeButtonElement.classList.add("active");
       this.stopwatchModeButtonElement.classList.remove("active");
       this.clockElement.style.display = "none";
       this.durationSetterElement.style.display = "block";
@@ -99,17 +99,17 @@ class TimingUi {
     TimerApp.Systems.AudioSystem.PlayAudio(AudioType.ButtonUp);
   }
 
-  /* [decrease nap duration by 5 minutes] */
+  /* [decrease countdown duration by 5 minutes] */
   OnClickStepDown() {
-    TimerApp.Datas.focusDurationMinutes = Tools.ClampNumber(TimerApp.Datas.focusDurationMinutes - 5, 5, 90);
+    TimerApp.Datas.countdownDurationMinutes = Tools.ClampNumber(TimerApp.Datas.countdownDurationMinutes - 5, 5, 90);
     this.RefreshDurationText();
     TimerApp.Systems.SaveSystem.Save();
     TimerApp.Systems.AudioSystem.PlayAudio(AudioType.ButtonDown);
   }
 
-  /* [increase nap duration by 5 minutes] */
+  /* [increase countdown duration by 5 minutes] */
   OnClickStepUp() {
-    TimerApp.Datas.focusDurationMinutes = Tools.ClampNumber(TimerApp.Datas.focusDurationMinutes + 5, 5, 90);
+    TimerApp.Datas.countdownDurationMinutes = Tools.ClampNumber(TimerApp.Datas.countdownDurationMinutes + 5, 5, 90);
     this.RefreshDurationText();
     TimerApp.Systems.SaveSystem.Save();
     TimerApp.Systems.AudioSystem.PlayAudio(AudioType.ButtonDown);

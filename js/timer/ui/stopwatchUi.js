@@ -18,7 +18,7 @@ class StopwatchUi {
     this.timeTextElement = document.querySelector("#stopwatchUi .time .timeText");
     this.pausedPanelElement = document.querySelector("#stopwatchUi .paused");
     this.pausedTimeTextElement = document.querySelector("#stopwatchUi .paused .timeText");
-    // has the halfway self-care nudge already been shown for the current nap session?
+    // has the halfway self-care nudge already been shown for the current countdown session?
     this._halfwayMessageShown = false;
     /* change this reference (point to current TitleBarUi object) */
     let onMouseEnterBlackCatPanel = this.OnMouseEnterBlackCatPanel.bind(this);
@@ -77,43 +77,43 @@ class StopwatchUi {
   UpdateTimeText(_time) {
     this.timeTextElement.innerText = _time;
   }
-  /* [call when a stopwatch or nap session starts running] */
+  /* [call when a stopwatch or countdown session starts running] */
   OnSessionStart() {
     // start ambient purring, if the user has it enabled
     TimerApp.Systems.AudioSystem.StartPurr();
-    // nap-specific companion visuals
-    if (TimerApp.Datas.timerMode == ModeType.Focus) {
+    // countdown-specific companion visuals
+    if (TimerApp.Datas.timerMode == ModeType.Countdown) {
       this._halfwayMessageShown = false;
-      if (window.NapCompanion) {
-        window.NapCompanion.OnSessionStart();
+      if (window.CountdownCompanion) {
+        window.CountdownCompanion.OnSessionStart();
       }
-    } else if (window.NapCompanion) {
-      window.NapCompanion.HideBuddy();
+    } else if (window.CountdownCompanion) {
+      window.CountdownCompanion.HideBuddy();
     }
   }
-  /* [call every tick while a nap countdown is running]
+  /* [call every tick while a countdown is running]
         param1: progress ratio, 0 (just started) to 1 (finished) */
-  OnNapProgress(_progress) {
-    if (window.NapCompanion) {
-      window.NapCompanion.OnProgress(_progress);
+  OnCountdownProgress(_progress) {
+    if (window.CountdownCompanion) {
+      window.CountdownCompanion.OnProgress(_progress);
     }
     // partway self-care nudge, only for longer sessions
-    if (this._halfwayMessageShown != true && _progress >= 0.5 && TimerApp.Datas.focusDurationMinutes > 25) {
+    if (this._halfwayMessageShown != true && _progress >= 0.5 && TimerApp.Datas.countdownDurationMinutes > 25) {
       this._halfwayMessageShown = true;
-      if (window.NapCompanion) {
-        window.NapCompanion.ShowSelfCareMessage();
+      if (window.CountdownCompanion) {
+        window.CountdownCompanion.ShowSelfCareMessage();
       }
     }
   }
-  /* [call once when a nap countdown reaches zero] */
-  OnNapComplete() {
+  /* [call once when a countdown reaches zero] */
+  OnCountdownComplete() {
     TimerApp.Systems.TimeSystem.Pause();
     TimerApp.Datas.currentState = StateType.None;
     TimerApp.Systems.AudioSystem.StopPurr();
-    TimerApp.Systems.AudioSystem.PlayAudio(AudioType.NapComplete);
-    if (window.NapCompanion) {
-      window.NapCompanion.OnComplete();
-      window.NapCompanion.ShowSelfCareMessage();
+    TimerApp.Systems.AudioSystem.PlayAudio(AudioType.CountdownComplete);
+    if (window.CountdownCompanion) {
+      window.CountdownCompanion.OnComplete();
+      window.CountdownCompanion.ShowSelfCareMessage();
     }
   }
   /* events */
@@ -175,10 +175,10 @@ class StopwatchUi {
     TimerApp.Datas.currentTime.ChangeMinute(0);
     TimerApp.Datas.currentTime.ChangeSeconds(0);
     TimerApp.Datas.currentTime.ChangeMilliseconds(0);
-    // stop ambient purring and nap companion visuals
+    // stop ambient purring and countdown companion visuals
     TimerApp.Systems.AudioSystem.StopPurr();
-    if (window.NapCompanion) {
-      window.NapCompanion.OnReset();
+    if (window.CountdownCompanion) {
+      window.CountdownCompanion.OnReset();
     }
     // close [stopwatch ui]
     TimerApp.Uis.StopwatchUi.OpenOrCloseUi(false);
@@ -238,7 +238,7 @@ class StopwatchUi {
   }
   // when mouse clicks [gray cat mouth]
   OnClickGrayCatMouthButton() {
-    // nothing to pause/resume (e.g. a nap session already finished) — just give button feedback
+    // nothing to pause/resume (e.g. a countdown session already finished) — just give button feedback
     if (TimerApp.Datas.currentState != StateType.Run && TimerApp.Datas.currentState != StateType.Pause) {
       TimerApp.Systems.AudioSystem.PlayAudio(AudioType.ButtonUp);
       return;

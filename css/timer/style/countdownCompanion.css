@@ -1,9 +1,9 @@
 /* ============================================
-   KittyTimer — Nap Companion
+   KittyTimer — Countdown Companion
    Sleepy buddy badge + self-care toast
    ============================================ */
 
-#napBuddy {
+#countdownBuddy {
   position: fixed;
   top: 16px;
   left: 16px;
@@ -30,26 +30,26 @@
     background-color 0.35s ease;
 }
 
-#napBuddy.visible {
+#countdownBuddy.visible {
   opacity: 1;
   transform: scale(1);
 }
 
-#napBuddy .face {
+#countdownBuddy .face {
   font-size: 24px;
   line-height: 1;
   transition: transform 0.35s ease;
 }
 
-#napBuddy.stage-drowsy .face {
+#countdownBuddy.stage-drowsy .face {
   transform: rotate(-8deg);
 }
 
-#napBuddy.stage-asleep .face {
+#countdownBuddy.stage-asleep .face {
   transform: rotate(-14deg) scale(0.95);
 }
 
-#napBuddy .zzz {
+#countdownBuddy .zzz {
   position: absolute;
   top: -8px;
   right: -6px;
@@ -61,22 +61,22 @@
   transition: opacity 0.3s ease;
 }
 
-#napBuddy.stage-asleep .zzz {
+#countdownBuddy.stage-asleep .zzz {
   opacity: 1;
 }
 
-#napBuddy .zzz span {
+#countdownBuddy .zzz span {
   display: inline-block;
-  animation: napZzzFloat 2.2s ease-in-out infinite;
+  animation: countdownZzzFloat 2.2s ease-in-out infinite;
 }
-#napBuddy .zzz span:nth-child(2) {
+#countdownBuddy .zzz span:nth-child(2) {
   animation-delay: 0.25s;
 }
-#napBuddy .zzz span:nth-child(3) {
+#countdownBuddy .zzz span:nth-child(3) {
   animation-delay: 0.5s;
 }
 
-@keyframes napZzzFloat {
+@keyframes countdownZzzFloat {
   0% {
     opacity: 0;
     transform: translateY(4px);

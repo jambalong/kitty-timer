@@ -26,7 +26,7 @@ see Testing notes), and committed incrementally. No check-ins were needed.
 
 - A dismissible toast rotates through six warm, non-naggy suggestions
   (stretch, water, rest your eyes, breathe, shoulders, a small smile), shown
-  on nap completion and, for sessions longer than 25 minutes, once past the
+  on countdown completion and, for sessions longer than 25 minutes, once past the
   halfway point.
 - A settings toggle ("Break tips: on/off") fully disables it; the preference
   persists via `localStorage`.

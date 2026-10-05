@@ -46,10 +46,11 @@ see Testing notes), and committed incrementally. No check-ins were needed.
 - A gear-icon settings popover (`js/timer/settingsPanel.js`) holds the purr
   on/off toggle, its own volume slider, and the break-tips toggle from feature 2.
   All three preferences persist via the existing `SaveSystem`.
-- The purr uses the supplied recording `asset/audio/Purr.mp3` (an earlier
-  synthesized WAV placeholder was replaced). It is ~1.3 MB and loops via the
-  `<audio loop>` attribute; MP3 encoder padding may cause a very small gap at
-  the loop point.
+- The purr is derived from the supplied recording `asset/audio/Purr.mp3`. The
+  original was far too quiet to hear (peak -20 dBFS, average about -40 dB), so
+  `asset/audio/Purr.wav` is that recording amplified ~18 dB (peak -2.4 dBFS),
+  downsampled to 24 kHz mono, ~1.9 MB. The page plays the WAV, which also
+  loops without MP3 padding gaps. The original `Purr.mp3` is kept untouched.
 
 ## Non-obvious decisions
 

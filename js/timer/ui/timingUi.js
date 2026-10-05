@@ -6,14 +6,32 @@ class TimingUi {
     this.yellowBackgroundElement = document.querySelector("#timingUi .background .yellow");
     this.grayBackgroundElement = document.querySelector("#timingUi .background .gray");
 
+    this.clockElement = document.querySelector("#timingUi .clock");
+    this.durationSetterElement = document.querySelector("#timingUi .durationSetter");
+    this.durationValueElement = document.querySelector("#timingUi .durationSetter .durationValue");
+    this.stepDownButtonElement = document.querySelector("#timingUi .durationSetter .stepDown");
+    this.stepUpButtonElement = document.querySelector("#timingUi .durationSetter .stepUp");
+    this.stopwatchModeButtonElement = document.querySelector("#timingUi .modeToggle .stopwatchMode");
+    this.countdownModeButtonElement = document.querySelector("#timingUi .modeToggle .countdownMode");
+
     let onClickStartButton = this.OnClickStartButton.bind(this);
     let onMouseDownButton = this.OnMouseDownButton.bind(this);
+    let onClickStopwatchMode = this.OnClickStopwatchMode.bind(this);
+    let onClickCountdownMode = this.OnClickCountdownMode.bind(this);
+    let onClickStepDown = this.OnClickStepDown.bind(this);
+    let onClickStepUp = this.OnClickStepUp.bind(this);
 
     this.startButtonElement.onmousedown = onMouseDownButton;
     this.startButtonElement.onclick = onClickStartButton;
+    this.stopwatchModeButtonElement.onclick = onClickStopwatchMode;
+    this.countdownModeButtonElement.onclick = onClickCountdownMode;
+    this.stepDownButtonElement.onclick = onClickStepDown;
+    this.stepUpButtonElement.onclick = onClickStepUp;
 
     this.yellowBackgroundElement.style.opacity = "0";
     this.grayBackgroundElement.style.opacity = "0";
+
+    this.RefreshDurationText();
   }
 
   OpenOrCloseUi(_isOpen) {
@@ -28,15 +46,72 @@ class TimingUi {
     return this.uiElement;
   }
 
+  /* [refresh the minutes number shown on the duration stepper]
+       (call after loading saved data, or after +/- is pressed) */
+  RefreshDurationText() {
+    this.durationValueElement.innerText = TimerApp.Datas.countdownDurationMinutes + "";
+  }
+
   OnMouseDownButton() {
     TimerApp.Systems.AudioSystem.PlayAudio(AudioType.ButtonDown);
   }
 
   OnClickStartButton() {
-    TimerApp.Uis.StopwatchUi.UpdateTimeText(TimerApp.Datas.currentTime.ToString());
-    TimerApp.Datas.currentState = StateType.Run;
-    TimerApp.Systems.TimeSystem.Start();
+    if (TimerApp.Datas.timerMode == ModeType.Countdown) {
+      let _totalDurationMs = TimerApp.Datas.countdownDurationMinutes * 60000;
+      TimerApp.Datas.currentTime.ChangeMinute(TimerApp.Datas.countdownDurationMinutes);
+      TimerApp.Datas.currentTime.ChangeSeconds(0);
+      TimerApp.Datas.currentTime.ChangeMilliseconds(0);
+      TimerApp.Uis.StopwatchUi.UpdateTimeText(TimerApp.Datas.currentTime.ToString());
+      TimerApp.Datas.currentState = StateType.Run;
+      TimerApp.Systems.TimeSystem.StartCountdown(_totalDurationMs);
+    } else {
+      TimerApp.Uis.StopwatchUi.UpdateTimeText(TimerApp.Datas.currentTime.ToString());
+      TimerApp.Datas.currentState = StateType.Run;
+      TimerApp.Systems.TimeSystem.Start();
+    }
+    TimerApp.Uis.StopwatchUi.OnSessionStart();
     TimerApp.Uis.TimingUi.OpenOrCloseUi(false);
     TimerApp.Uis.StopwatchUi.OpenOrCloseUi(true);
+  }
+
+  /* [switch to Stopwatch mode] */
+  OnClickStopwatchMode() {
+    if (TimerApp.Datas.timerMode != ModeType.Stopwatch) {
+      TimerApp.Datas.timerMode = ModeType.Stopwatch;
+      this.stopwatchModeButtonElement.classList.add("active");
+      this.countdownModeButtonElement.classList.remove("active");
+      this.clockElement.style.display = "block";
+      this.durationSetterElement.style.display = "none";
+    }
+    TimerApp.Systems.AudioSystem.PlayAudio(AudioType.ButtonUp);
+  }
+
+  /* [switch to Countdown mode] */
+  OnClickCountdownMode() {
+    if (TimerApp.Datas.timerMode != ModeType.Countdown) {
+      TimerApp.Datas.timerMode = ModeType.Countdown;
+      this.countdownModeButtonElement.classList.add("active");
+      this.stopwatchModeButtonElement.classList.remove("active");
+      this.clockElement.style.display = "none";
+      this.durationSetterElement.style.display = "block";
+    }
+    TimerApp.Systems.AudioSystem.PlayAudio(AudioType.ButtonUp);
+  }
+
+  /* [decrease countdown duration by 5 minutes] */
+  OnClickStepDown() {
+    TimerApp.Datas.countdownDurationMinutes = Tools.ClampNumber(TimerApp.Datas.countdownDurationMinutes - 5, 5, 90);
+    this.RefreshDurationText();
+    TimerApp.Systems.SaveSystem.Save();
+    TimerApp.Systems.AudioSystem.PlayAudio(AudioType.ButtonDown);
+  }
+
+  /* [increase countdown duration by 5 minutes] */
+  OnClickStepUp() {
+    TimerApp.Datas.countdownDurationMinutes = Tools.ClampNumber(TimerApp.Datas.countdownDurationMinutes + 5, 5, 90);
+    this.RefreshDurationText();
+    TimerApp.Systems.SaveSystem.Save();
+    TimerApp.Systems.AudioSystem.PlayAudio(AudioType.ButtonDown);
   }
 }

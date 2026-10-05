@@ -75,6 +75,34 @@ class StopwatchUi {
   UpdateTimeText(_time) {
     this.timeTextElement.innerText = _time;
   }
+  /* [call when a stopwatch or countdown session starts running] */
+  OnSessionStart() {
+    // countdown-specific companion visuals
+    if (TimerApp.Datas.timerMode == ModeType.Countdown) {
+      if (window.CountdownCompanion) {
+        window.CountdownCompanion.OnSessionStart();
+      }
+    } else if (window.CountdownCompanion) {
+      window.CountdownCompanion.HideBuddy();
+    }
+  }
+  /* [call every tick while a countdown is running]
+        param1: progress ratio, 0 (just started) to 1 (finished) */
+  OnCountdownProgress(_progress) {
+    if (window.CountdownCompanion) {
+      window.CountdownCompanion.OnProgress(_progress);
+    }
+  }
+  /* [call once when a countdown reaches zero] */
+  OnCountdownComplete() {
+    TimerApp.Systems.TimeSystem.Pause();
+    TimerApp.Datas.currentState = StateType.None;
+    TimerApp.Systems.AudioSystem.PlayAudio(AudioType.CountdownComplete);
+    if (window.CountdownCompanion) {
+      window.CountdownCompanion.OnComplete();
+      window.CountdownCompanion.ShowSelfCareMessage();
+    }
+  }
   /* events */
   // when mouse enters [black cat]
   OnMouseEnterBlackCatPanel() {
@@ -134,6 +162,10 @@ class StopwatchUi {
     TimerApp.Datas.currentTime.ChangeMinute(0);
     TimerApp.Datas.currentTime.ChangeSeconds(0);
     TimerApp.Datas.currentTime.ChangeMilliseconds(0);
+    // hide countdown companion visuals
+    if (window.CountdownCompanion) {
+      window.CountdownCompanion.OnReset();
+    }
     // close [stopwatch ui]
     TimerApp.Uis.StopwatchUi.OpenOrCloseUi(false);
     // open [timing ui]
@@ -192,6 +224,11 @@ class StopwatchUi {
   }
   // when mouse clicks [gray cat mouth]
   OnClickGrayCatMouthButton() {
+    // nothing to pause/resume (e.g. a countdown session already finished) — just give button feedback
+    if (TimerApp.Datas.currentState != StateType.Run && TimerApp.Datas.currentState != StateType.Pause) {
+      TimerApp.Systems.AudioSystem.PlayAudio(AudioType.ButtonUp);
+      return;
+    }
     // if pressed is [pause button]
     if (this.pausedPanelElement.style.visibility != "visible") {
       // then pause

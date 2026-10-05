@@ -9,9 +9,10 @@ A charming cat-themed web timer application.
   between visits), and watch the countdown play out — a sleepy cat badge settles
   in and drifts off to sleep as time runs down, with a soft chime at zero
 - **Self-Care Break Companion**: A gentle, dismissible nudge (stretch, drink
-  water, rest your eyes...) appears when a countdown session finishes, and partway
-  through longer (25+ minute) sessions — toggle it off anytime in Settings
-- **Purr Ambience**: An optional looping purr plays alongside any running timer,
+  water, rest your eyes...) appears when a countdown session finishes, and
+  optionally every 20, 30, or 60 minutes while the page is open (off by default;
+  the clock pauses while the tab is hidden) — toggle it off anytime in Settings
+- **Purr Ambience**: An optional looping purr plays whenever it is switched on,
   with its own volume slider in Settings — off by default
 - **Pause/Resume**: Click the gray cat to pause or resume the timer
 - **Reset**: Click the black cat to reset and return to the timing interface
@@ -55,7 +56,7 @@ kitty-timer/
 3. Click the start button to begin the stopwatch or countdown
 4. Click the gray cat to pause/resume
 5. Click the black cat to reset
-6. Use the gear icon in the corner to turn self-care break tips or purr ambience on/off
+6. Use the gear icon in the corner to turn self-care break tips (and how often they appear) or purr ambience on/off
 
 ## Technologies
 

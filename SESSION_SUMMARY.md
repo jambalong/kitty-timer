@@ -26,10 +26,15 @@ see Testing notes), and committed incrementally. No check-ins were needed.
 
 - A dismissible toast rotates through six warm, non-naggy suggestions
   (stretch, water, rest your eyes, breathe, shoulders, a small smile), shown
-  on countdown completion and, for sessions longer than 25 minutes, once past the
-  halfway point.
-- A settings toggle ("Break tips: on/off") fully disables it; the preference
-  persists via `localStorage`.
+  on countdown completion and on a user-set interval ("Tip every: off / 20 / 30 /
+  60 min", default off since a recurring interruption should be opt-in).
+- The interval clock is independent of the countdown: it runs in every mode and
+  counts only time the tab is visible. Changing the interval, toggling tips, or
+  showing any tip restarts it. There is one toast, so one tip at a time: an
+  interval tip is skipped if a tip is already on screen, and the completion tip
+  replaces an interval tip that is showing.
+- A settings toggle ("Break tips: on/off") fully disables both kinds; the
+  preferences persist via `localStorage`.
 - Built as `js/timer/countdownCompanion.js`, a self-contained module in the same
   style as the existing `cozy.js`/`theme.js` additions. The core `Ui` classes
   only ever call it through `if (window.CountdownCompanion)` guards, so it can
@@ -39,8 +44,8 @@ see Testing notes), and committed incrementally. No check-ins were needed.
 
 - A soft, seamlessly-looping purr plays through the *existing* `AudioSystem`
   (new `StartPurr`/`StopPurr`/`UpdatePurrEnabled`/`UpdatePurrVolume` methods
-  on the same class, not a parallel audio system) whenever a timer — stopwatch
-  or countdown — is running, and pauses/resumes with it.
+  on the same class, not a parallel audio system) whenever the toggle is on,
+  independent of whether a timer is running.
 - Off by default: a new continuous looping sound autoplaying for existing
   users felt like the riskier default, so it's opt-in.
 - A gear-icon settings popover (`js/timer/settingsPanel.js`) holds the purr
